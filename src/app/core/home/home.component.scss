@@ -76,3 +76,16 @@
     color: gray;
   }
 }
+.floating-action-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  border-color: white;
+}
+.floating-action-button:hover {
+ background-color: white;
+ color: gray;
+}
