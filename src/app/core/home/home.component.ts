@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  skills: any;
   constructor() { }
 
   ngOnInit(): void {
+    this.skills = [
+      {title:'Web'},
+      {title:'Mobile'},
+      {title:'Web3'},
+      {title:'Backend'},
+    ]
   }
 
 }

@@ -1,0 +1,78 @@
+#title{
+  text-align: center;
+  font-size: 45px;
+  font-weight: 600;
+}
+.main{
+  margin: 10px;
+  margin-top: 10vh;
+  #title{
+    font-size: 20px;
+    font-weight: 400;
+    text-align: start;
+    color: gray;
+  }
+  #about-me{
+    font-size: 15px;
+    width: 80%;
+  }
+  .container{
+    margin-left: 15%;
+    .card-deck {
+      position: relative;
+      height: 250px;
+    }
+    
+    .card {
+      position: absolute;
+      transition: all 0.5s ease;
+      height: 470px;
+      width: 400px;
+      border-radius: 20px;
+    }
+    
+    .card-1 {
+      transform: rotate(-7deg);
+      z-index: 1;
+    }
+    
+    .card-2 {
+      transform: rotate(-5deg);
+      z-index: 2;
+    }
+    .card-3 {
+      transform: rotate(-1deg);
+      z-index: 2;
+    }
+    
+    .card:hover {
+      transform: translateY(-20px);
+      z-index: 3;
+      background-color: gray;
+      color: white;
+    }
+    
+  }
+  .skills{
+    margin-top: 5vh;
+    width: 80%;
+    .card{
+      height: 130px;
+      width: 130px;
+      margin: 5px;
+    }
+    #skill-title{
+      text-align: center;
+      color: gray;
+    }
+  }
+  .btn{
+    margin-top: 5vh;
+    width: 30%;
+    background-color: white;
+    border-radius: 0px !important;
+  }
+  .btn:hover{
+    color: gray;
+  }
+}

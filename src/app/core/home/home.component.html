@@ -1,1 +1,54 @@
-<p>home works!</p>
+<app-header></app-header>
+<p id="title">Building an amazing future <br> in technology</p>
+
+<div class="main row">
+  <div class="col">
+    <!-- Overlay Cards -->
+    <div class="container">
+      <div class="card-deck">
+        <div class="card card-1">
+          <div class="card-body">
+            <h5 class="card-title">Card 1</h5>
+            <p class="card-text">This is a simple card with some text as content.</p>
+          </div>
+        </div>
+        <div class="card card-2">
+          <div class="card-body">
+            <h5 class="card-title">Card 2</h5>
+            <p class="card-text">This is another simple card with some text as content.</p>
+          </div>
+        </div>
+        <div class="card card-3">
+          <div class="card-body">
+            <h5 class="card-title">Card 3</h5>
+            <p class="card-text">This is another simple card with some text as content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <!-- About me -->
+    <p id="title">About Me</p>
+    <p id="about-me">Hey there! 👋 I'm Alex, a software engineer passionate about creating innovative web, mobile, and backend
+      solutions. I thrive on blending coding, product management, and DevSecOps to ensure my creations function flawlessly
+      in the ever-evolving digital landscape.
+      <br>
+      <br>
+      As an environmental advocate, I'm dedicated to harnessing technology for a sustainable future. 🌎 Let's connect
+      and turn our digital dreams into reality, making a difference one line of code at a time—all while keeping it
+      light, fun, and just the right amount of serious. 🚀</p>
+      <!-- Cards for skills -->
+      <div class="skills">
+        <div class="row">
+          <div class="col-3" *ngFor="let skill of skills;">
+            <div class="card">
+            </div>
+            <p id="skill-title">{{skill.title}}</p>
+          </div>
+        </div>
+      </div>
+      <!-- CTA Button -->
+      <button type="button" class="btn">Beyond Code</button>
+  </div>
+</div>
