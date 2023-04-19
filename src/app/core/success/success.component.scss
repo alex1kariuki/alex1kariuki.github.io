@@ -1,0 +1,49 @@
+.success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -3%;
+  .card {
+    height: 80vh;
+    width: 80%;
+    border-radius: 20px;
+    #title {
+      font-size: 30px;
+      text-align: center;
+      margin-top: 10%;
+    }
+    .ball {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // Border
+      border: 1px solid black;
+      width: 30vh;
+      height: 30vh;
+      border-radius: 30vh;
+      margin-top: 3%;
+    }
+    #tagline {
+      font-size: 30px;
+      text-align: center;
+      margin-top: 10%;
+    }
+    .btn {
+      display: block;
+      margin: 0 auto;
+      margin-top: 5vh;
+      width: 30%;
+      background-color: white;
+      border-radius: 0px !important;
+      border: 0.5px solid black;
+      // Display item
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //
+    }
+    .btn:hover {
+      color: gray;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.services {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .card {
+    border-color: black;
+    width: 100%;
+    min-width: 280px;
+    min-height: 200px;
+    max-width: 280px;
+    max-height: 250px;
+    height: 100%;
+    border-radius: 10px;
+    // margin: 15%;
+  }
+}
+.btn {
+  display: block;
+  margin: 0 auto;
+  margin-top: 5vh;
+  width: 30%;
+  background-color: white;
+  border-radius: 0px !important;
+  border: 0.5px solid black;
+  // Display item
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // 
+ 
+}
+.btn:hover {
+  color: gray;
+}

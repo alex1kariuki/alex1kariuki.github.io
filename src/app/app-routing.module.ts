@@ -4,6 +4,7 @@ import { HomeComponent } from './core/home/home.component';
 import { ContactComponent } from './core/contact/contact.component';
 import { ProjectsComponent } from './core/projects/projects.component';
 import { BeyondComponent } from './core/beyond/beyond.component';
+import { SuccessComponent } from './core/success/success.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,7 +23,11 @@ const routes: Routes = [
   {
     path: 'beyond',
     component: BeyondComponent,
-  }
+  },
+  {
+    path: 'success',
+    component: SuccessComponent,
+  },
 ];
 
 @NgModule({

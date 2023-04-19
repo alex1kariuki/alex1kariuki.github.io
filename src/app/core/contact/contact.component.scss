@@ -1,0 +1,45 @@
+.talk {
+  margin: 10%;
+  margin-top: 20%;
+  #title {
+    font-size: 18px;
+    color: gray;
+  }
+  #subtitle {
+    margin-bottom: 20px;
+  }
+  #subtitle a {
+    font-weight: bolder;
+    color: rgb(29, 213, 87);
+  }
+}
+.technologies {
+  margin: 10%;
+  width: 38%;
+  margin-top: 2vh;
+  .card {
+    // width: 80%;
+    height: 5vh;
+    width: 5vh;
+    border-radius: 5px;
+  }
+}
+.collab {
+  height: 80vh;
+  .card {
+    margin-left: 5%;
+    height: 95%;
+    width: 95%;
+    border-radius: 20px;
+
+   
+    #title {
+      color: black;
+      font-size: 25px;
+      text-align: center;
+      margin-top: 3%;
+      margin-bottom: 2%;
+    }
+   
+  }
+}

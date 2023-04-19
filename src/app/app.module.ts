@@ -9,6 +9,9 @@ import { ProjectsComponent } from './core/projects/projects.component';
 import { ContactComponent } from './core/contact/contact.component';
 import { SuccessComponent } from './core/success/success.component';
 import { BeyondComponent } from './core/beyond/beyond.component';
+import { ContactFormComponent } from './shared/contact-form/contact-form.component';
+import { ContactServiceComponent } from './shared/contact-service/contact-service.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { BeyondComponent } from './core/beyond/beyond.component';
     ProjectsComponent,
     ContactComponent,
     SuccessComponent,
-    BeyondComponent
+    BeyondComponent,
+    ContactFormComponent,
+    ContactServiceComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
