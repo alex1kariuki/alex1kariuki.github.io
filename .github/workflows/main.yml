@@ -13,6 +13,8 @@ jobs:
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v3 # or latest version
+      with:
+        fetch-depth: 0
 
     - name: Setup Node.js environment
       uses: actions/setup-node@v3 # or latest version
@@ -38,4 +40,4 @@ jobs:
         git config user.email "alexkariuki2@gmail.com"
         git add -A
         git commit -m "Deploy to gh-pages"
-        git push -f origin master:gh-pages
+        git push -f origin staging:gh-pages
