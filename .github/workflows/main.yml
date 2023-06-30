@@ -40,4 +40,4 @@ jobs:
         git config user.email "alexkariuki2@gmail.com"
         git add -A
         git commit -m "Deploy to gh-pages"
-        git push -f origin staging:gh-pages
+        git push -f origin master:gh-pages
