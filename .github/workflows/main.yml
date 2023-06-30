@@ -33,7 +33,9 @@ jobs:
         npm run build -- --prod --output-path docs
 
     - name: Deploy 🚀
-      uses: peaceiris/actions-gh-pages@v3 # or latest version
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "alexkariuki2@gmail.com"
+        git add -A
+        git commit -m "Deploy to gh-pages"
+        git push -f origin master:gh-pages
