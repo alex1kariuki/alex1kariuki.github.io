@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v3 # or latest version
 
     - name: Setup Node.js environment
-      uses: actions/setup-node@v2.4.3 # or latest version
+      uses: actions/setup-node@v3 # or latest version
       with:
         node-version: 14.x
 
