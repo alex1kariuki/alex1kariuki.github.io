@@ -12,15 +12,15 @@ jobs:
 
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.3.4 # or latest version
 
     - name: Setup Node.js environment
-      uses: actions/setup-node@v2.3.0
+      uses: actions/setup-node@v2.3.0 # or latest version
       with:
         node-version: 14.x
 
     - name: Cache Node.js modules
-      uses: actions/cache@v2.1.5
+      uses: actions/cache@v2.1.5 # or latest version
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -33,9 +33,7 @@ jobs:
         npm run build -- --prod --output-path docs
 
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4.1.5
+      uses: actions/gh-pages@v3 # or latest version
       with:
-        branch: gh-pages
-        folder: docs
-        clean: true
-        token: ${{ secrets.GH_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
