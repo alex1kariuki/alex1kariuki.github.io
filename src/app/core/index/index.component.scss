@@ -1,0 +1,29 @@
+#title {
+  text-align: center;
+  font-size: 50px;
+margin-top: 2vh;
+}
+#bold {
+  color: #12d2d2;
+  font-style: italic;
+}
+
+.about {
+  width: 90%;
+  margin-top: 2vh;
+  #subtitle{
+    font-size: 20px;
+    color: #B6B6B6;
+  }
+  .card{
+    height: 15vh;
+    padding: 10px;
+    margin-top: 2vh;
+  }
+  button{
+    margin-top: 3vh;
+    width: 22.5vw;
+    height: 5vh;
+    border-radius: 0px;
+  }
+}

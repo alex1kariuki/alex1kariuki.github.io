@@ -1,0 +1,12 @@
+<div
+  class="card-container"
+>
+  <div
+    *ngFor="let card of cards; let i = index"
+    class="card"
+    [ngClass]="'card-' + i"
+    draggable="true"
+  >
+    <p>{{ card.title }}</p>
+  </div>
+</div>

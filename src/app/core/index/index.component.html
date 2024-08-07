@@ -1,0 +1,47 @@
+<app-header></app-header>
+<!-- Content -->
+<p id="title">
+  Building an <b id="bold">amazing future</b> <br />
+  in technology
+</p>
+
+<div class="row about">
+  <div class="col shuffled">
+    <app-overview></app-overview>
+  </div>
+  <div class="col">
+    <p id="subtitle">About Me</p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti libero
+      mollitia voluptas optio? Ullam nesciunt distinctio atque aliquam id porro
+      officia, quasi dolores laborum reiciendis quidem. Error dolorum deserunt
+      eaque!
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti libero
+      mollitia voluptas optio? Ullam nesciunt distinctio atque aliquam id porro
+      officia, quasi dolores laborum reiciendis quidem. Error dolorum deserunt
+      eaque!
+    </p>
+    <div class="row">
+      <div class="col" *ngFor="let category of categories">
+        <div class="card">{{ category.title }}</div>
+      </div>
+    </div>
+    <!-- Go beyond -->
+    <button type="button" class="btn btn-light">GO BEYOND</button>
+  </div>
+</div>
+
+<div class="dropup position-absolute bottom-0 end-0 rounded-circle m-5">
+  <button
+    type="button"
+    class="btn btn-light btn-lg dropdown-toggle hide-toggle"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <!-- <i class="fa-solid fa-plus"></i> -->
+    <!-- <span class="visually-hidden">BMC</span> -->
+  </button>
+</div>
