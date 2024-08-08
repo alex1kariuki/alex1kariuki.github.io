@@ -8,9 +8,10 @@ $secondary-color: #6c757d;
 $success-color: #28a745;
 $error-color: #dc3545;
 $text-color: #FFFFFF;
-$body-background-color: #000000;
+$body-background-color: #000000; 
+
 
 body{
-  background-color: $body-background-color;
+  background: $body-background-color;
   color: $text-color;
 }

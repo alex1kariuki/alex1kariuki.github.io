@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "Spotify Clone",
+    "link": "http://example.com/spotify-clone",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "left"
+  },
+  {
+    "id": 2,
+    "title": "Project 2",
+    "link": "http://example.com/project-2",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "right"
+  },
+  {
+    "id": 3,
+    "title": "Project 3",
+    "link": "http://example.com/project-3",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "small"
+  },
+  {
+    "id": 4,
+    "title": "Project 4",
+    "link": "http://example.com/project-4",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "small"
+  },
+  {
+    "id": 5,
+    "title": "Project 5",
+    "link": "http://example.com/project-5",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "left"
+  },
+  {
+    "id": 6,
+    "title": "Project 6",
+    "link": "http://example.com/project-6",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "small"
+  },
+  {
+    "id": 7,
+    "title": "Project 7",
+    "link": "http://example.com/project-7",
+    "image": "http://via.placeholder.com/300x200",
+    "type": "small"
+  }
+]

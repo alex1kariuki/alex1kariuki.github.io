@@ -7,7 +7,7 @@ import { OverviewComponent } from "../../shared/components/overview/overview.com
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, OverviewComponent],
+  imports: [CommonModule, OverviewComponent],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss',
 })

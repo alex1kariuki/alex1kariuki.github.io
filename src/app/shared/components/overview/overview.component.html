@@ -1,12 +1,25 @@
 <div
   class="card-container"
+  (drop)="onDrop($event)"
+  (dragover)="onDragOver($event)"
 >
   <div
     *ngFor="let card of cards; let i = index"
     class="card"
-    [ngClass]="'card-' + i"
+    [ngClass]="{
+      'card-0': i === 0,
+      'card-1': i === 1,
+      'card-2': i === 2,
+      'card-default': i > 2
+    }"
     draggable="true"
+    (dragstart)="onDragStart($event, i)"
+    (dragend)="onDragEnd($event)"
+    (drag)="onDrag($event)"
+    (click)="onProjectClick(card.title)"
   >
     <p>{{ card.title }}</p>
   </div>
 </div>
+
+
