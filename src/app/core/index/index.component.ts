@@ -81,21 +81,21 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Update layered glow positions with different offsets for depth effect
     if (this.glow?.nativeElement) {
-      const glowSize = vh * 0.95; // 95vh
+      const glowSize = vh * 0.3; // 30vh
       const glowX = e.clientX - (glowSize / 2);
       const glowY = e.clientY - (glowSize / 2);
       this.glow.nativeElement.style.transform = `translate(${glowX}px, ${glowY}px)`;
     }
 
     if (this.secondaryGlow?.nativeElement) {
-      const secondarySize = vh * 0.75; // 75vh
+      const secondarySize = vh * 0.25; // 25vh
       const secondaryX = e.clientX - (secondarySize / 2);
       const secondaryY = e.clientY - (secondarySize / 2);
       this.secondaryGlow.nativeElement.style.transform = `translate(${secondaryX}px, ${secondaryY}px)`;
     }
 
     if (this.coreGlow?.nativeElement) {
-      const coreSize = vh * 0.5; // 50vh
+      const coreSize = vh * 0.2; // 20vh
       const coreX = e.clientX - (coreSize / 2);
       const coreY = e.clientY - (coreSize / 2);
       this.coreGlow.nativeElement.style.transform = `translate(${coreX}px, ${coreY}px)`;
