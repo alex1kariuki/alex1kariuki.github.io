@@ -227,17 +227,17 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   private createParticles() {
     if (!this.canvas) return;
     
-    // More particles
-    const numParticles = Math.floor((this.canvas.width * this.canvas.height) / 10000);
+    // Fewer particles for subtlety
+    const numParticles = Math.floor((this.canvas.width * this.canvas.height) / 25000);
     this.particles = [];
 
     for (let i = 0; i < numParticles; i++) {
       this.particles.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        vx: (Math.random() - 0.5) * 0.4, // Slightly faster movement
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 4 + 1.5, // Larger particles
+        vx: (Math.random() - 0.5) * 0.2, // Slower movement
+        vy: (Math.random() - 0.5) * 0.2,
+        size: Math.random() * 2 + 0.5, // Smaller particles
         color: this.getRandomColor()
       });
     }
@@ -245,10 +245,10 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private getRandomColor(): string {
     const colors = [
-      'rgba(56, 189, 248, 0.9)',  // Bright Blue
-      'rgba(139, 92, 246, 0.9)',  // Bright Purple
-      'rgba(45, 212, 191, 0.9)',  // Bright Teal
-      'rgba(255, 255, 255, 0.8)'  // White
+      'rgba(56, 189, 248, 0.4)',  // Blue
+      'rgba(139, 92, 246, 0.4)',  // Purple
+      'rgba(45, 212, 191, 0.4)',  // Teal
+      'rgba(255, 255, 255, 0.3)'  // White
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
@@ -256,27 +256,27 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   private animateParticles() {
     if (!this.ctx || !this.canvas) return;
 
-    // Clear canvas with more transparency for longer trails
-    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    // More transparent trail
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     // Update and draw particles
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
       
-      // Update position with stronger mouse attraction
+      // Update position with gentler mouse attraction
       const dx = this.mousePosition.x - p.x;
       const dy = this.mousePosition.y - p.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
       
-      if (distance < 300) { // Increased interaction range
-        p.vx += (dx / distance) * 0.03;
-        p.vy += (dy / distance) * 0.03;
+      if (distance < 200) { // Reduced interaction range
+        p.vx += (dx / distance) * 0.01;
+        p.vy += (dy / distance) * 0.01;
       }
       
-      // Apply velocity limits
-      p.vx = Math.min(Math.max(p.vx, -1.5), 1.5);
-      p.vy = Math.min(Math.max(p.vy, -1.5), 1.5);
+      // Lower velocity limits
+      p.vx = Math.min(Math.max(p.vx, -0.8), 0.8);
+      p.vy = Math.min(Math.max(p.vy, -0.8), 0.8);
       
       p.x += p.vx;
       p.y += p.vy;
@@ -287,8 +287,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       if (p.y < 0) p.y = this.canvas.height;
       if (p.y > this.canvas.height) p.y = 0;
 
-      // Enhanced particle glow
-      this.ctx.shadowBlur = 20;
+      // Subtle particle glow
+      this.ctx.shadowBlur = 10;
       this.ctx.shadowColor = p.color;
       this.ctx.beginPath();
       this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -296,23 +296,23 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ctx.fill();
       this.ctx.shadowBlur = 0;
 
-      // Draw connections with enhanced gradients
+      // Draw connections with subtle gradients
       for (let j = i + 1; j < this.particles.length; j++) {
         const p2 = this.particles[j];
         const dx = p.x - p2.x;
         const dy = p.y - p2.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < 200) { // Increased connection range
+        if (distance < 100) { // Shorter connection range
           const gradient = this.ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
-          gradient.addColorStop(0, p.color);
-          gradient.addColorStop(1, p2.color);
+          gradient.addColorStop(0, p.color.replace('0.4', '0.15')); // More transparent connections
+          gradient.addColorStop(1, p2.color.replace('0.4', '0.15'));
           
           this.ctx.beginPath();
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(p2.x, p2.y);
           this.ctx.strokeStyle = gradient;
-          this.ctx.lineWidth = Math.max(0.5, (1 - distance / 200) * 3); // Thicker lines
+          this.ctx.lineWidth = Math.max(0.1, (1 - distance / 100) * 0.5); // Thinner lines
           this.ctx.stroke();
         }
       }
