@@ -76,22 +76,28 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mousePosition.x = e.clientX;
     this.mousePosition.y = e.clientY;
 
+    // Get viewport height for calculations
+    const vh = window.innerHeight;
+
     // Update layered glow positions with different offsets for depth effect
     if (this.glow?.nativeElement) {
-      const glowX = e.clientX - 600; // Half of primary glow width
-      const glowY = e.clientY - 600; // Half of primary glow height
+      const glowSize = vh * 0.95; // 95vh
+      const glowX = e.clientX - (glowSize / 2);
+      const glowY = e.clientY - (glowSize / 2);
       this.glow.nativeElement.style.transform = `translate(${glowX}px, ${glowY}px)`;
     }
 
     if (this.secondaryGlow?.nativeElement) {
-      const secondaryX = e.clientX - 400; // Half of secondary glow width
-      const secondaryY = e.clientY - 400; // Half of secondary glow height
+      const secondarySize = vh * 0.75; // 75vh
+      const secondaryX = e.clientX - (secondarySize / 2);
+      const secondaryY = e.clientY - (secondarySize / 2);
       this.secondaryGlow.nativeElement.style.transform = `translate(${secondaryX}px, ${secondaryY}px)`;
     }
 
     if (this.coreGlow?.nativeElement) {
-      const coreX = e.clientX - 200; // Half of core glow width
-      const coreY = e.clientY - 200; // Half of core glow height
+      const coreSize = vh * 0.5; // 50vh
+      const coreX = e.clientX - (coreSize / 2);
+      const coreY = e.clientY - (coreSize / 2);
       this.coreGlow.nativeElement.style.transform = `translate(${coreX}px, ${coreY}px)`;
     }
   }
