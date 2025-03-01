@@ -1,8 +1,8 @@
 <!-- Content -->
-<div class="min-h-screen bg-black text-white relative overflow-hidden">
+<div class="h-screen bg-black text-white relative overflow-hidden flex flex-col">
   <!-- Navigation -->
-  <nav class="absolute top-0 left-0 right-0 p-6">
-    <div class="max-w-7xl mx-auto flex flex-col items-center space-y-6">
+  <nav class="p-4">
+    <div class="max-w-7xl mx-auto flex flex-col items-center space-y-4">
       <div class="relative flex items-center">
         <span class="text-3xl font-bold mr-3">&#123;</span>
         <div class="flex flex-col items-center leading-none">
@@ -19,26 +19,26 @@
     </div>
   </nav>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40">
-    <h1 class="text-6xl md:text-7xl font-bold text-center mb-4 tracking-tight">
+  <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+    <h1 class="text-5xl md:text-6xl font-bold text-center mb-4 tracking-tight">
       Building an <span class="text-teal-400 inline-block transform hover:scale-105 transition-transform duration-300">amazing future</span> <br />
       <span class="text-white/90">in technology</span>
     </h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mt-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
       <div class="relative group">
         <div class="absolute -inset-1 bg-gradient-to-r from-teal-400 to-teal-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
         <div class="relative transform hover:scale-[1.02] transition-all duration-300">
-          <app-overview class="rounded-2xl bg-gray-900/50 backdrop-blur-sm p-8 border border-gray-800"></app-overview>
+          <app-overview class="rounded-2xl bg-gray-900/50 backdrop-blur-sm p-6 border border-gray-800"></app-overview>
         </div>
       </div>
       
-      <div class="space-y-10">
-        <h2 class="text-4xl font-semibold text-white">
+      <div class="space-y-6">
+        <h2 class="text-3xl font-semibold text-white">
           About Me
         </h2>
         
-        <div class="space-y-6 text-gray-300">
+        <div class="space-y-4 text-gray-300 text-sm">
           <p class="leading-relaxed">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
             molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
@@ -46,37 +46,35 @@
           </p>
           <p class="leading-relaxed">
             Eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-            obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-            nihil, eveniet aliquid culpa officia aut!
+            optio, eaque rerum! Provident similique accusantium nemo autem.
           </p>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 transform hover:scale-105 transition-all duration-300 group">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-4 transform hover:scale-105 transition-all duration-300 group">
             <div class="text-center">
-              <span class="text-teal-400 group-hover:text-teal-300 transition-colors">Web</span>
+              <span class="text-teal-400 group-hover:text-teal-300 transition-colors text-sm">Web</span>
             </div>
           </div>
-          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 transform hover:scale-105 transition-all duration-300 group">
+          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-4 transform hover:scale-105 transition-all duration-300 group">
             <div class="text-center">
-              <span class="text-teal-400 group-hover:text-teal-300 transition-colors">Mobile</span>
+              <span class="text-teal-400 group-hover:text-teal-300 transition-colors text-sm">Mobile</span>
             </div>
           </div>
-          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 transform hover:scale-105 transition-all duration-300 group">
+          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-4 transform hover:scale-105 transition-all duration-300 group">
             <div class="text-center">
-              <span class="text-teal-400 group-hover:text-teal-300 transition-colors">Web3</span>
+              <span class="text-teal-400 group-hover:text-teal-300 transition-colors text-sm">Web3</span>
             </div>
           </div>
-          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 transform hover:scale-105 transition-all duration-300 group">
+          <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-4 transform hover:scale-105 transition-all duration-300 group">
             <div class="text-center">
-              <span class="text-teal-400 group-hover:text-teal-300 transition-colors">Backend</span>
+              <span class="text-teal-400 group-hover:text-teal-300 transition-colors text-sm">Backend</span>
             </div>
           </div>
         </div>
 
         <button type="button" 
-                class="px-8 py-3 bg-teal-500 text-white font-semibold rounded-full hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-black">
+                class="px-6 py-2 bg-teal-500 text-white font-semibold rounded-full hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-black text-sm">
           GO BEYOND
         </button>
       </div>
@@ -84,11 +82,11 @@
   </div>
 
   <!-- BMC Button -->
-  <div class="fixed bottom-8 right-8 z-50">
+  <div class="fixed bottom-6 right-6 z-50">
     <button type="button"
-            class="bg-gray-900/50 backdrop-blur-sm p-4 rounded-full border border-gray-800 hover:border-teal-400 transform hover:scale-110 transition-all duration-300 focus:outline-none"
+            class="bg-gray-900/50 backdrop-blur-sm p-3 rounded-full border border-gray-800 hover:border-teal-400 transform hover:scale-110 transition-all duration-300 focus:outline-none"
             aria-label="Menu">
-      <span class="text-2xl font-bold text-white">BMC</span>
+      <span class="text-xl font-bold text-white">BMC</span>
     </button>
   </div>
 
