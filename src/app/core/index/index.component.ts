@@ -13,7 +13,12 @@ import { OverviewComponent } from "../../shared/components/overview/overview.com
 })
 export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('cursor') cursor!: ElementRef;
+  @ViewChild('trail') trail!: ElementRef;
+  @ViewChild('glow') glow!: ElementRef;
+  
   private animationFrame: number | null = null;
+  private mousePosition = { x: 0, y: 0 };
+  private trailPosition = { x: 0, y: 0 };
   private isBrowser: boolean;
 
   categories: Categories[] = [{ title: '', image: '' }];
@@ -34,6 +39,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if (this.isBrowser) {
       this.addEventListeners();
+      this.animateCursor();
     }
   }
 
@@ -65,17 +71,41 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   private onMouseMove(e: MouseEvent) {
     if (!this.isBrowser) return;
 
-    if (this.animationFrame) {
-      cancelAnimationFrame(this.animationFrame);
-    }
+    this.mousePosition.x = e.clientX;
+    this.mousePosition.y = e.clientY;
 
-    this.animationFrame = requestAnimationFrame(() => {
-      const { clientX, clientY } = e;
+    // Update glow position with some offset
+    if (this.glow?.nativeElement) {
+      const glowX = e.clientX - 400; // Half of glow width
+      const glowY = e.clientY - 400; // Half of glow height
+      this.glow.nativeElement.style.transform = `translate(${glowX}px, ${glowY}px)`;
+    }
+  }
+
+  private animateCursor() {
+    if (!this.isBrowser) return;
+
+    const animate = () => {
+      // Smooth cursor movement
       if (this.cursor?.nativeElement) {
-        this.cursor.nativeElement.style.left = `${clientX}px`;
-        this.cursor.nativeElement.style.top = `${clientY}px`;
+        const cursorX = this.mousePosition.x - 6; // Half of cursor width
+        const cursorY = this.mousePosition.y - 6; // Half of cursor height
+        this.cursor.nativeElement.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
       }
-    });
+
+      // Smooth trail movement with lag
+      if (this.trail?.nativeElement) {
+        // Calculate trail position with smooth following
+        this.trailPosition.x += (this.mousePosition.x - this.trailPosition.x - 16) * 0.1; // 16 is half of trail width
+        this.trailPosition.y += (this.mousePosition.y - this.trailPosition.y - 16) * 0.1; // 16 is half of trail height
+        
+        this.trail.nativeElement.style.transform = `translate(${this.trailPosition.x}px, ${this.trailPosition.y}px)`;
+      }
+
+      this.animationFrame = requestAnimationFrame(animate);
+    };
+
+    animate();
   }
 
   private onMouseEnter() {
@@ -84,6 +114,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.cursor?.nativeElement) {
       this.cursor.nativeElement.style.opacity = '1';
     }
+    if (this.trail?.nativeElement) {
+      this.trail.nativeElement.style.opacity = '1';
+    }
   }
 
   private onMouseLeave() {
@@ -91,6 +124,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.cursor?.nativeElement) {
       this.cursor.nativeElement.style.opacity = '0';
+    }
+    if (this.trail?.nativeElement) {
+      this.trail.nativeElement.style.opacity = '0';
     }
   }
 
@@ -101,8 +137,10 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     const target = e.target as HTMLElement;
     if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button') {
       if (this.cursor?.nativeElement) {
-        this.cursor.nativeElement.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        this.cursor.nativeElement.style.mixBlendMode = 'difference';
+        this.cursor.nativeElement.style.transform = `translate(${this.mousePosition.x - 12}px, ${this.mousePosition.y - 12}px) scale(1.5)`;
+      }
+      if (this.trail?.nativeElement) {
+        this.trail.nativeElement.firstElementChild?.classList.add('scale-150');
       }
     }
   }
@@ -114,8 +152,10 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     const target = e.target as HTMLElement;
     if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button') {
       if (this.cursor?.nativeElement) {
-        this.cursor.nativeElement.style.transform = 'translate(-50%, -50%) scale(1)';
-        this.cursor.nativeElement.style.mixBlendMode = 'difference';
+        this.cursor.nativeElement.style.transform = `translate(${this.mousePosition.x - 6}px, ${this.mousePosition.y - 6}px) scale(1)`;
+      }
+      if (this.trail?.nativeElement) {
+        this.trail.nativeElement.firstElementChild?.classList.remove('scale-150');
       }
     }
   }
