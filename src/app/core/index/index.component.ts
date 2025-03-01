@@ -15,6 +15,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('cursor') cursor!: ElementRef;
   @ViewChild('trail') trail!: ElementRef;
   @ViewChild('glow') glow!: ElementRef;
+  @ViewChild('secondaryGlow') secondaryGlow!: ElementRef;
+  @ViewChild('coreGlow') coreGlow!: ElementRef;
   
   private animationFrame: number | null = null;
   private mousePosition = { x: 0, y: 0 };
@@ -74,11 +76,23 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mousePosition.x = e.clientX;
     this.mousePosition.y = e.clientY;
 
-    // Update glow position with some offset
+    // Update layered glow positions with different offsets for depth effect
     if (this.glow?.nativeElement) {
-      const glowX = e.clientX - 400; // Half of glow width
-      const glowY = e.clientY - 400; // Half of glow height
+      const glowX = e.clientX - 600; // Half of primary glow width
+      const glowY = e.clientY - 600; // Half of primary glow height
       this.glow.nativeElement.style.transform = `translate(${glowX}px, ${glowY}px)`;
+    }
+
+    if (this.secondaryGlow?.nativeElement) {
+      const secondaryX = e.clientX - 400; // Half of secondary glow width
+      const secondaryY = e.clientY - 400; // Half of secondary glow height
+      this.secondaryGlow.nativeElement.style.transform = `translate(${secondaryX}px, ${secondaryY}px)`;
+    }
+
+    if (this.coreGlow?.nativeElement) {
+      const coreX = e.clientX - 200; // Half of core glow width
+      const coreY = e.clientY - 200; // Half of core glow height
+      this.coreGlow.nativeElement.style.transform = `translate(${coreX}px, ${coreY}px)`;
     }
   }
 
@@ -88,16 +102,16 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     const animate = () => {
       // Smooth cursor movement
       if (this.cursor?.nativeElement) {
-        const cursorX = this.mousePosition.x - 6; // Half of cursor width
-        const cursorY = this.mousePosition.y - 6; // Half of cursor height
+        const cursorX = this.mousePosition.x - 10; // Half of cursor width
+        const cursorY = this.mousePosition.y - 10; // Half of cursor height
         this.cursor.nativeElement.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
       }
 
       // Smooth trail movement with lag
       if (this.trail?.nativeElement) {
         // Calculate trail position with smooth following
-        this.trailPosition.x += (this.mousePosition.x - this.trailPosition.x - 16) * 0.1; // 16 is half of trail width
-        this.trailPosition.y += (this.mousePosition.y - this.trailPosition.y - 16) * 0.1; // 16 is half of trail height
+        this.trailPosition.x += (this.mousePosition.x - this.trailPosition.x - 24) * 0.1; // 24 is half of trail width
+        this.trailPosition.y += (this.mousePosition.y - this.trailPosition.y - 24) * 0.1; // 24 is half of trail height
         
         this.trail.nativeElement.style.transform = `translate(${this.trailPosition.x}px, ${this.trailPosition.y}px)`;
       }
