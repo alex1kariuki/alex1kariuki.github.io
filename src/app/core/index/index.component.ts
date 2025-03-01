@@ -3,6 +3,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { Categories } from '../../shared/models/category.model';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { OverviewComponent } from "../../shared/components/overview/overview.component";
+import { FormsModule } from '@angular/forms';
 
 interface Particle {
   x: number;
@@ -13,10 +14,16 @@ interface Particle {
   color: string;
 }
 
+interface ChatMessage {
+  text: string;
+  isAI: boolean;
+  timestamp: Date;
+}
+
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [CommonModule, OverviewComponent],
+  imports: [CommonModule, OverviewComponent, FormsModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss',
 })
@@ -37,6 +44,12 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   private ctx: CanvasRenderingContext2D | null = null;
   private canvas: HTMLCanvasElement | null = null;
 
+  // Chat related properties
+  isChatOpen = false;
+  currentMessage = '';
+  messages: ChatMessage[] = [];
+  isTyping = false;
+
   categories: Categories[] = [{ title: '', image: '' }];
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
@@ -50,6 +63,13 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       { title: 'Backend', image: 'http://' },
       { title: 'Data', image: 'http://' },
     ];
+
+    // Initialize with welcome message
+    this.messages = [{
+      text: "Hi! I'm Alex's AI assistant. How can I help you today?",
+      isAI: true,
+      timestamp: new Date()
+    }];
   }
 
   ngAfterViewInit() {
@@ -319,5 +339,41 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.particlesAnimationFrame = requestAnimationFrame(this.animateParticles.bind(this));
+  }
+
+  // Chat related methods
+  toggleChat(): void {
+    if (this.isBrowser) {
+      this.isChatOpen = !this.isChatOpen;
+      const chatGroup = document.querySelector('.chat-group');
+      if (chatGroup) {
+        chatGroup.classList.toggle('active');
+      }
+    }
+  }
+
+  async sendMessage(): Promise<void> {
+    if (!this.currentMessage.trim()) return;
+
+    // Add user message
+    this.messages.push({
+      text: this.currentMessage,
+      isAI: false,
+      timestamp: new Date()
+    });
+
+    const userMessage = this.currentMessage;
+    this.currentMessage = '';
+    this.isTyping = true;
+
+    // Simulate AI response (replace with actual AI integration)
+    setTimeout(() => {
+      this.messages.push({
+        text: `I received your message: "${userMessage}". This is a placeholder response.`,
+        isAI: true,
+        timestamp: new Date()
+      });
+      this.isTyping = false;
+    }, 1000);
   }
 }
