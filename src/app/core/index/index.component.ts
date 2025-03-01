@@ -4,6 +4,15 @@ import { Categories } from '../../shared/models/category.model';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { OverviewComponent } from "../../shared/components/overview/overview.component";
 
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  color: string;
+}
+
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -17,11 +26,16 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('glow') glow!: ElementRef;
   @ViewChild('secondaryGlow') secondaryGlow!: ElementRef;
   @ViewChild('coreGlow') coreGlow!: ElementRef;
+  @ViewChild('particlesContainer') particlesContainer!: ElementRef;
   
   private animationFrame: number | null = null;
+  private particlesAnimationFrame: number | null = null;
   private mousePosition = { x: 0, y: 0 };
   private trailPosition = { x: 0, y: 0 };
   private isBrowser: boolean;
+  private particles: Particle[] = [];
+  private ctx: CanvasRenderingContext2D | null = null;
+  private canvas: HTMLCanvasElement | null = null;
 
   categories: Categories[] = [{ title: '', image: '' }];
 
@@ -42,6 +56,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isBrowser) {
       this.addEventListeners();
       this.animateCursor();
+      this.initParticles();
     }
   }
 
@@ -50,6 +65,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       this.removeEventListeners();
       if (this.animationFrame) {
         cancelAnimationFrame(this.animationFrame);
+      }
+      if (this.particlesAnimationFrame) {
+        cancelAnimationFrame(this.particlesAnimationFrame);
       }
     }
   }
@@ -178,5 +196,128 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
         this.trail.nativeElement.firstElementChild?.classList.remove('scale-150');
       }
     }
+  }
+
+  private initParticles() {
+    if (!this.isBrowser || !this.particlesContainer) return;
+
+    // Create canvas
+    this.canvas = document.createElement('canvas');
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+    this.particlesContainer.nativeElement.appendChild(this.canvas);
+    this.ctx = this.canvas.getContext('2d');
+
+    // Set canvas size
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas.bind(this));
+
+    // Create particles
+    this.createParticles();
+    this.animateParticles();
+  }
+
+  private resizeCanvas() {
+    if (!this.canvas || !this.ctx) return;
+    const container = this.particlesContainer.nativeElement;
+    this.canvas.width = container.clientWidth;
+    this.canvas.height = container.clientHeight;
+  }
+
+  private createParticles() {
+    if (!this.canvas) return;
+    
+    // More particles
+    const numParticles = Math.floor((this.canvas.width * this.canvas.height) / 10000);
+    this.particles = [];
+
+    for (let i = 0; i < numParticles; i++) {
+      this.particles.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        vx: (Math.random() - 0.5) * 0.4, // Slightly faster movement
+        vy: (Math.random() - 0.5) * 0.4,
+        size: Math.random() * 4 + 1.5, // Larger particles
+        color: this.getRandomColor()
+      });
+    }
+  }
+
+  private getRandomColor(): string {
+    const colors = [
+      'rgba(56, 189, 248, 0.9)',  // Bright Blue
+      'rgba(139, 92, 246, 0.9)',  // Bright Purple
+      'rgba(45, 212, 191, 0.9)',  // Bright Teal
+      'rgba(255, 255, 255, 0.8)'  // White
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  private animateParticles() {
+    if (!this.ctx || !this.canvas) return;
+
+    // Clear canvas with more transparency for longer trails
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    // Update and draw particles
+    for (let i = 0; i < this.particles.length; i++) {
+      const p = this.particles[i];
+      
+      // Update position with stronger mouse attraction
+      const dx = this.mousePosition.x - p.x;
+      const dy = this.mousePosition.y - p.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      if (distance < 300) { // Increased interaction range
+        p.vx += (dx / distance) * 0.03;
+        p.vy += (dy / distance) * 0.03;
+      }
+      
+      // Apply velocity limits
+      p.vx = Math.min(Math.max(p.vx, -1.5), 1.5);
+      p.vy = Math.min(Math.max(p.vy, -1.5), 1.5);
+      
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Wrap around edges
+      if (p.x < 0) p.x = this.canvas.width;
+      if (p.x > this.canvas.width) p.x = 0;
+      if (p.y < 0) p.y = this.canvas.height;
+      if (p.y > this.canvas.height) p.y = 0;
+
+      // Enhanced particle glow
+      this.ctx.shadowBlur = 20;
+      this.ctx.shadowColor = p.color;
+      this.ctx.beginPath();
+      this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      this.ctx.fillStyle = p.color;
+      this.ctx.fill();
+      this.ctx.shadowBlur = 0;
+
+      // Draw connections with enhanced gradients
+      for (let j = i + 1; j < this.particles.length; j++) {
+        const p2 = this.particles[j];
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 200) { // Increased connection range
+          const gradient = this.ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
+          gradient.addColorStop(0, p.color);
+          gradient.addColorStop(1, p2.color);
+          
+          this.ctx.beginPath();
+          this.ctx.moveTo(p.x, p.y);
+          this.ctx.lineTo(p2.x, p2.y);
+          this.ctx.strokeStyle = gradient;
+          this.ctx.lineWidth = Math.max(0.5, (1 - distance / 200) * 3); // Thicker lines
+          this.ctx.stroke();
+        }
+      }
+    }
+
+    this.particlesAnimationFrame = requestAnimationFrame(this.animateParticles.bind(this));
   }
 }

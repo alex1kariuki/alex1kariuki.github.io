@@ -1,5 +1,27 @@
 <!-- Content -->
-<div class="h-screen bg-black text-white relative overflow-hidden flex flex-col cursor-none">
+<div class="h-screen text-white relative overflow-hidden flex flex-col cursor-none">
+  <!-- Enhanced Background -->
+  <div class="fixed inset-0 -z-30">
+    <!-- Base gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f] opacity-90"></div>
+    
+    <!-- Animated grid -->
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+    
+    <!-- Glowing orbs -->
+    <div class="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-blue-500/30 blur-[120px] animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[45vw] h-[45vw] rounded-full bg-purple-500/30 blur-[120px] animate-pulse [animation-delay:1000ms]"></div>
+    <div class="absolute top-1/2 right-1/3 w-[35vw] h-[35vw] rounded-full bg-teal-500/30 blur-[120px] animate-pulse [animation-delay:2000ms]"></div>
+    
+    <!-- Particles container -->
+    <div class="particles-container absolute inset-0" #particlesContainer></div>
+  </div>
+
+  <!-- Noise texture overlay -->
+  <div class="fixed inset-0 -z-20 opacity-[0.08] mix-blend-soft-light">
+    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4xNSIvPjwvc3ZnPg==');"></div>
+  </div>
+
   <!-- Custom Cursor -->
   <div class="fixed pointer-events-none z-50" #cursor>
     <div class="relative">
@@ -23,13 +45,6 @@
     
     <!-- Core intense glow -->
     <div class="absolute h-[20vh] aspect-square bg-gradient-to-r from-purple-300/50 via-blue-300/50 to-teal-300/50 rounded-full filter blur-[20px] transition-all duration-500 ease-out" #coreGlow></div>
-  </div>
-
-  <!-- Dot Grid Background -->
-  <div class="fixed inset-0 -z-20">
-    <div class="absolute inset-0" 
-         style="background-image: radial-gradient(circle at center, rgb(255 255 255 / 0.15) 1px, transparent 1px); 
-                background-size: 30px 30px;"></div>
   </div>
 
   <!-- Navigation -->
