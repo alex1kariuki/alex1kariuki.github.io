@@ -1,10 +1,18 @@
 <!-- Content -->
-<div class="h-screen bg-black text-white relative overflow-hidden flex flex-col">
+<div class="h-screen bg-black text-white relative overflow-hidden flex flex-col cursor-none">
+  <!-- Custom Cursor -->
+  <div class="fixed w-6 h-6 bg-white rounded-full pointer-events-none z-50 mix-blend-difference transition-transform duration-200 ease-out" style="transform: translate(-50%, -50%)" #cursor></div>
+
+  <!-- Dot Grid Background -->
+  <div class="fixed inset-0 -z-10 opacity-20">
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle at center, rgb(75 85 99 / 0.3) 1px, transparent 1px); background-size: 40px 40px;"></div>
+  </div>
+
   <!-- Navigation -->
   <nav class="p-4">
     <div class="max-w-7xl mx-auto flex flex-col items-center space-y-4">
       <div class="relative flex items-center">
-        <span class="text-3xl font-bold mr-3">&#123;</span>
+        <span class="text-3xl font-bold mr-3 cursor-none">&#123;</span>
         <div class="flex flex-col items-center leading-none">
           <span class="text-2xl font-bold mb-1">ALEX</span>
           <span class="text-2xl font-bold">KARIUKI</span>
@@ -12,9 +20,9 @@
         <span class="text-3xl font-bold ml-3">&#125;</span>
       </div>
       <div class="flex space-x-8">
-        <a href="#projects" class="text-white hover:text-gray-300 transition-colors">Projects</a>
-        <a href="#blog" class="text-white hover:text-gray-300 transition-colors">Blog</a>
-        <a href="#contact" class="text-white hover:text-gray-300 transition-colors">Contact</a>
+        <a href="#projects" class="text-white hover:text-gray-300 transition-colors hover:scale-110 transform duration-200">Projects</a>
+        <a href="#blog" class="text-white hover:text-gray-300 transition-colors hover:scale-110 transform duration-200">Blog</a>
+        <a href="#contact" class="text-white hover:text-gray-300 transition-colors hover:scale-110 transform duration-200">Contact</a>
       </div>
     </div>
   </nav>
@@ -92,7 +100,6 @@
 
   <!-- Background Effects -->
   <div class="fixed inset-0 -z-10">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/20 rounded-full filter blur-3xl"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/5 rounded-full filter blur-2xl"></div>
   </div>
 </div>
