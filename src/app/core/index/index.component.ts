@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener, PLATFORM_ID, Inject, Renderer2 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -49,7 +49,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   categories = [{ title: '', image: '' }];
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  private tawkTo: any;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object, private renderer: Renderer2) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -67,6 +69,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       isAI: true,
       timestamp: new Date()
     }];
+
+    this.loadTawkTo();
   }
 
   ngAfterViewInit() {
@@ -372,5 +376,40 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.isTyping = false;
     }, 1000);
+  }
+
+  private loadTawkTo() {
+    // Create Tawk.to script
+    const script = this.renderer.createElement('script');
+    script.type = 'text/javascript';
+    script.text = `
+      var Tawk_API = Tawk_API || {};
+      var Tawk_LoadStart = new Date();
+      (function(){
+        var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/YOUR_TAWK_TO_SITE_ID/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+      })();
+    `;
+    
+    // Append script to body
+    this.renderer.appendChild(document.body, script);
+
+    // Store Tawk_API reference
+    window.addEventListener('tawkReady', () => {
+      this.tawkTo = (window as any).Tawk_API;
+      // Hide the widget by default
+      this.tawkTo.hideWidget();
+    });
+  }
+
+  openTawkChat() {
+    if (this.tawkTo) {
+      this.tawkTo.maximize();
+    }
   }
 }
