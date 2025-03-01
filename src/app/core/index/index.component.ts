@@ -32,6 +32,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('coreGlow') coreGlow!: ElementRef;
   @ViewChild('particlesContainer') particlesContainer!: ElementRef;
   
+  isLoaded = false;
   private animationFrame: number | null = null;
   private particlesAnimationFrame: number | null = null;
   private mousePosition = { x: 0, y: 0 };
@@ -69,6 +70,13 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       isAI: true,
       timestamp: new Date()
     }];
+
+    // Simulate loading time
+    if (this.isBrowser) {
+      setTimeout(() => {
+        this.isLoaded = true;
+      }, 1500);
+    }
   }
 
   ngAfterViewInit() {

@@ -1,21 +1,40 @@
+<!-- Loading Screen -->
+<div *ngIf="!isLoaded" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+  <div class="text-center">
+    <div class="w-16 h-16 border-t-4 border-teal-400 border-solid rounded-full animate-spin mb-4"></div>
+    <p class="text-teal-400 text-lg animate-pulse">Loading...</p>
+  </div>
+</div>
+
 <!-- Content -->
 <div
-  class="h-screen text-white relative overflow-hidden flex flex-col cursor-none font-space-grotesk"
+  [class.opacity-0]="!isLoaded"
+  [class.opacity-100]="isLoaded"
+  class="min-h-screen text-white relative overflow-x-hidden flex flex-col cursor-none font-space-grotesk transition-opacity duration-700 delay-300"
 >
   <!-- Background Elements -->
-  <div class="fixed inset-0 -z-30">
+  <div class="fixed inset-0 -z-30 opacity-0 transition-opacity duration-1000 delay-500"
+       [class.opacity-100]="isLoaded">
     <div class="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#0a192f] to-[#112240] opacity-95"></div>
     <div
-      class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"
+      class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] scale-75 opacity-0 transition-all duration-1000 delay-700"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
     ></div>
     <div
-      class="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] rounded-full bg-blue-500/10 blur-[150px] animate-pulse [animation-duration:5s]"
+      class="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] rounded-full bg-blue-500/10 blur-[150px] animate-pulse [animation-duration:5s] scale-75 opacity-0 transition-all duration-1000 delay-1000"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
     ></div>
     <div
-      class="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] rounded-full bg-purple-500/10 blur-[150px] animate-pulse [animation-duration:6s] [animation-delay:1000ms]"
+      class="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] rounded-full bg-purple-500/10 blur-[150px] animate-pulse [animation-duration:6s] [animation-delay:1000ms] scale-75 opacity-0 transition-all duration-1000 delay-1200"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
     ></div>
     <div
-      class="absolute top-1/2 right-1/3 w-[25vw] h-[25vw] rounded-full bg-teal-500/10 blur-[150px] animate-pulse [animation-duration:7s] [animation-delay:2000ms]"
+      class="absolute top-1/2 right-1/3 w-[25vw] h-[25vw] rounded-full bg-teal-500/10 blur-[150px] animate-pulse [animation-duration:7s] [animation-delay:2000ms] scale-75 opacity-0 transition-all duration-1000 delay-1400"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
     ></div>
     <div class="particles-container absolute inset-0" #particlesContainer></div>
   </div>
@@ -94,6 +113,9 @@
   <!-- Main Content -->
   <div
     class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-start pb-8 sm:pb-12 lg:pb-16 -mt-12 sm:-mt-16 lg:-mt-24 pt-24 sm:pt-32 lg:pt-48"
+    [class.translate-y-4]="!isLoaded"
+    [class.translate-y-0]="isLoaded"
+    class="transition-transform duration-1000 ease-out"
   >
     <h1 class="text-4xl sm:text-5xl md:text-7xl font-light text-center mb-6 sm:mb-8 tracking-wide leading-tight font-['Outfit']">
       Building an
@@ -414,5 +436,33 @@
   /* Add font-family definition */
   .font-space-grotesk {
     font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Add these new animation styles */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .content-animate {
+    animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: calc(var(--delay) * 100ms);
   }
 </style>
