@@ -69,8 +69,6 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       isAI: true,
       timestamp: new Date()
     }];
-
-    this.loadTawkTo();
   }
 
   ngAfterViewInit() {
@@ -78,6 +76,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       this.addEventListeners();
       this.animateCursor();
       this.initParticles();
+      this.loadTawkTo();
     }
   }
 
@@ -379,6 +378,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadTawkTo() {
+    if (!this.isBrowser) return;
+
     // Create Tawk.to script
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';
@@ -400,15 +401,17 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderer.appendChild(document.body, script);
 
     // Store Tawk_API reference
-    window.addEventListener('tawkReady', () => {
-      this.tawkTo = (window as any).Tawk_API;
-      // Hide the widget by default
-      this.tawkTo.hideWidget();
-    });
+    if (typeof window !== 'undefined') {
+      window.addEventListener('tawkReady', () => {
+        this.tawkTo = (window as any).Tawk_API;
+        // Hide the widget by default
+        this.tawkTo?.hideWidget();
+      });
+    }
   }
 
   openTawkChat() {
-    if (this.tawkTo) {
+    if (this.isBrowser && this.tawkTo) {
       this.tawkTo.maximize();
     }
   }
