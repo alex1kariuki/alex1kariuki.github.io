@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener, PLATFORM_ID, Inject } from '@angular/core';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { Categories } from '../../shared/models/category.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { OverviewComponent } from "../../shared/components/overview/overview.component";
 
 @Component({
@@ -14,10 +14,13 @@ import { OverviewComponent } from "../../shared/components/overview/overview.com
 export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('cursor') cursor!: ElementRef;
   private animationFrame: number | null = null;
+  private isBrowser: boolean;
 
   categories: Categories[] = [{ title: '', image: '' }];
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
     this.categories = [
@@ -29,29 +32,39 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.addEventListeners();
+    if (this.isBrowser) {
+      this.addEventListeners();
+    }
   }
 
   ngOnDestroy() {
-    this.removeEventListeners();
-    if (this.animationFrame) {
-      cancelAnimationFrame(this.animationFrame);
+    if (this.isBrowser) {
+      this.removeEventListeners();
+      if (this.animationFrame) {
+        cancelAnimationFrame(this.animationFrame);
+      }
     }
   }
 
   private addEventListeners() {
+    if (!this.isBrowser) return;
+    
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     document.addEventListener('mouseenter', this.onMouseEnter.bind(this));
     document.addEventListener('mouseleave', this.onMouseLeave.bind(this));
   }
 
   private removeEventListeners() {
+    if (!this.isBrowser) return;
+    
     document.removeEventListener('mousemove', this.onMouseMove.bind(this));
     document.removeEventListener('mouseenter', this.onMouseEnter.bind(this));
     document.removeEventListener('mouseleave', this.onMouseLeave.bind(this));
   }
 
   private onMouseMove(e: MouseEvent) {
+    if (!this.isBrowser) return;
+
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
     }
@@ -66,12 +79,16 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMouseEnter() {
+    if (!this.isBrowser) return;
+
     if (this.cursor?.nativeElement) {
       this.cursor.nativeElement.style.opacity = '1';
     }
   }
 
   private onMouseLeave() {
+    if (!this.isBrowser) return;
+
     if (this.cursor?.nativeElement) {
       this.cursor.nativeElement.style.opacity = '0';
     }
@@ -79,6 +96,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:mouseover', ['$event'])
   onMouseOver(e: MouseEvent) {
+    if (!this.isBrowser) return;
+
     const target = e.target as HTMLElement;
     if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button') {
       if (this.cursor?.nativeElement) {
@@ -90,6 +109,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:mouseout', ['$event'])
   onMouseOut(e: MouseEvent) {
+    if (!this.isBrowser) return;
+
     const target = e.target as HTMLElement;
     if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button') {
       if (this.cursor?.nativeElement) {

@@ -4,8 +4,16 @@
   <div class="fixed w-6 h-6 bg-white rounded-full pointer-events-none z-50 mix-blend-difference transition-transform duration-200 ease-out" style="transform: translate(-50%, -50%)" #cursor></div>
 
   <!-- Dot Grid Background -->
-  <div class="fixed inset-0 -z-10 opacity-20">
-    <div class="absolute inset-0" style="background-image: radial-gradient(circle at center, rgb(75 85 99 / 0.3) 1px, transparent 1px); background-size: 40px 40px;"></div>
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0" 
+         style="background-image: radial-gradient(circle at center, rgb(255 255 255 / 0.15) 2px, transparent 2px), radial-gradient(circle at center, rgb(255 255 255 / 0.1) 1px, transparent 1px); 
+                background-size: 40px 40px, 30px 30px;
+                background-position: 0 0, 20px 20px;"></div>
+  </div>
+
+  <!-- Center Glow -->
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white/10 rounded-full filter blur-3xl"></div>
   </div>
 
   <!-- Navigation -->
@@ -96,10 +104,5 @@
             aria-label="Menu">
       <span class="text-xl font-bold text-white">BMC</span>
     </button>
-  </div>
-
-  <!-- Background Effects -->
-  <div class="fixed inset-0 -z-10">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white/5 rounded-full filter blur-2xl"></div>
   </div>
 </div>
