@@ -1,8 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener, PLATFORM_ID, Inject } from '@angular/core';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { Categories } from '../../shared/models/category.model';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { OverviewComponent } from "../../shared/components/overview/overview.component";
 import { FormsModule } from '@angular/forms';
 
 interface Particle {
@@ -23,7 +20,7 @@ interface ChatMessage {
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [CommonModule, OverviewComponent, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss',
 })
@@ -50,7 +47,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   messages: ChatMessage[] = [];
   isTyping = false;
 
-  categories: Categories[] = [{ title: '', image: '' }];
+  categories = [{ title: '', image: '' }];
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
