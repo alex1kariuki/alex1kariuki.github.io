@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener, PLATFORM_ID, Inject, Renderer2 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 
 interface Project {
   id: number;
@@ -157,12 +157,16 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   // Filtered projects to display
   projects: Project[] = [];
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object, private renderer: Renderer2) {
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object, 
+    private renderer: Renderer2,
+    private route: ActivatedRoute
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
-    // Initialize with all projects
+    // Initialize projects list with all projects
     this.projects = [...this.allProjects];
     
     // Simulate loading time
@@ -170,6 +174,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => {
         this.isLoaded = true;
       }, 1500);
+      
+      // Check for category in query parameters
+      this.route.queryParams.subscribe(params => {
+        if (params['category'] && this.categories.includes(params['category'])) {
+          this.filterProjects(params['category']);
+        }
+      });
     }
   }
 
