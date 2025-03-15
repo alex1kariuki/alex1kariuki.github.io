@@ -123,17 +123,11 @@
     
     <!-- Category Tabs -->
     <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10">
-      <button 
-        *ngFor="let category of categories" 
-        (click)="filterProjects(category)"
-        [class.active]="isCategorySelected(category)"
-        [class.bg-teal-500/20]="isCategorySelected(category)"
-        [class.text-teal-300]="isCategorySelected(category)"
-        [class.bg-gray-800/50]="!isCategorySelected(category)"
-        [class.text-gray-300]="!isCategorySelected(category)"
-        class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-teal-500/30 hover:text-teal-200 category-tab"
-      >
-        {{ category }}
+      <button *ngFor="let cat of categories" (click)="filterProjects(cat)" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-teal-500/30 hover:text-teal-200 category-tab" [ngClass]="{
+          'bg-teal-500/20 text-teal-300 active': isCategorySelected(cat),
+          'bg-gray-800/50 text-gray-300': !isCategorySelected(cat)
+        }">
+        {{ cat }}
       </button>
     </div>
 
