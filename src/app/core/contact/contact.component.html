@@ -114,26 +114,30 @@
 
   <!-- Main Content -->
   <div
-    class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-16 mt-8"
+    class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-16 mt-8 text-center"
     [class.translate-y-4]="!isLoaded"
     [class.translate-y-0]="isLoaded"
     class="transition-transform duration-1000 ease-out"
   >
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-8 tracking-wide leading-tight font-['Outfit'] reveal-text">
-      Let's <span class="text-teal-400 inline-block">collaborate</span> on your next project
-    </h1>
-    
-    <p class="text-gray-300 text-center max-w-xl mb-10 text-base sm:text-lg">
-      Fill out the form below with your project details, and I'll get back to you as soon as possible. I'm excited to hear about what you're working on!
-    </p>
+    <div class="w-full flex justify-center items-center mb-10">
+      <div class="max-w-3xl w-full flex flex-col items-center">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-8 tracking-wide leading-tight font-['Outfit'] reveal-text px-4">
+          Let's <span class="text-teal-400 inline-block">collaborate</span> on your next project
+        </h1>
+        
+        <p class="text-gray-300 text-center px-6 mb-6 text-base sm:text-lg max-w-2xl">
+          Fill out the form below with your project details, and I'll get back to you as soon as possible. I'm excited to hear about what you're working on!
+        </p>
+      </div>
+    </div>
     
     <!-- Success Message -->
-    <div *ngIf="submitMessage" class="w-full max-w-sm mb-8 py-4 px-6 bg-teal-500/20 text-teal-300 rounded-lg animate-fade-in">
+    <div *ngIf="submitMessage" class="w-full max-w-md mb-8 py-4 px-6 bg-teal-500/20 text-teal-300 rounded-lg animate-fade-in text-center">
       {{ submitMessage }}
     </div>
     
     <!-- Contact Form -->
-    <div class="w-full max-w-sm mx-auto bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-xl transform hover:shadow-teal-500/5 transition-all duration-300">
+    <div class="w-full max-w-md mx-auto bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-xl transform hover:shadow-teal-500/5 transition-all duration-300">
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6">
         
         <!-- Name Field -->
@@ -185,26 +189,28 @@
         </div>
         
         <!-- Submit Button -->
-        <button 
-          type="submit" 
-          class="w-full px-6 py-3 bg-teal-500 text-white font-light rounded-lg hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-        >
-          Send Message
-        </button>
+        <div class="text-center">
+          <button 
+            type="submit" 
+            class="w-full px-6 py-3 bg-teal-500 text-white font-light rounded-lg hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          >
+            Send Message
+          </button>
+        </div>
       </form>
     </div>
     
     <!-- Contact Details -->
-    <div class="mt-12 text-center max-w-sm mx-auto">
+    <div class="mt-12 text-center max-w-md mx-auto">
       <h2 class="text-xl font-light mb-3 text-teal-400">Or reach out directly</h2>
       <div class="flex flex-col items-center justify-center gap-3">
         <a href="mailto:alex@kariuki.dev" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
-          <span>alex&#64;kariuki.dev</span>
+          <span>alex&#64;storim.io</span>
         </a>
-        <a href="https://linkedin.com/in/alex1kariuki" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
+        <a href="https://linkedin.com/in/alexkariuki" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
           </svg>
