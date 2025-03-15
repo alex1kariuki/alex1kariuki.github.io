@@ -1,0 +1,49 @@
+/* Custom form element styles */
+:host {
+  display: block;
+}
+
+/* Input focus styles */
+input:focus, textarea:focus {
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.2);
+}
+
+/* Custom placeholder styles */
+::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth hover transitions */
+input, textarea, button {
+  transition: all 0.3s ease;
+}
+
+/* Form animation */
+form {
+  transform-origin: center;
+}
+
+/* Success message styling */
+.success-message {
+  transform-origin: top;
+}
+
+/* Subtle hover effects for contact links */
+a {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: rgba(45, 212, 191, 0.7);
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+} 
