@@ -8,6 +8,7 @@ interface Project {
   description: string;
   image: string;
   technologies: Technology[];
+  categories: string[];
 }
 
 interface Technology {
@@ -49,7 +50,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   private ctx: CanvasRenderingContext2D | null = null;
   private canvas: HTMLCanvasElement | null = null;
 
-  projects: Project[] = [
+  // Available project categories
+  categories: string[] = ['All', 'Web', 'Mobile', 'Backend', 'Web3'];
+  
+  // Currently selected category for filtering
+  selectedCategory: string = 'All';
+  
+  // Full list of projects
+  allProjects: Project[] = [
     {
       id: 1,
       title: 'Modern Portfolio Website',
@@ -60,7 +68,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         { name: 'TailwindCSS', color: 'blue' },
         { name: 'TypeScript', color: 'blue' },
         { name: 'GSAP', color: 'green' }
-      ]
+      ],
+      categories: ['Web']
     },
     {
       id: 2,
@@ -73,7 +82,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         { name: 'MongoDB', color: 'green' },
         { name: 'Stripe', color: 'purple' },
         { name: 'Redux', color: 'purple' }
-      ]
+      ],
+      categories: ['Web', 'Backend']
     },
     {
       id: 3,
@@ -85,7 +95,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         { name: 'Firebase', color: 'yellow' },
         { name: 'Vuetify', color: 'blue' },
         { name: 'Socket.io', color: 'gray' }
-      ]
+      ],
+      categories: ['Web', 'Backend']
     },
     {
       id: 4,
@@ -98,7 +109,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         { name: 'Ethereum', color: 'teal' },
         { name: 'D3.js', color: 'orange' },
         { name: 'GraphQL', color: 'pink' }
-      ]
+      ],
+      categories: ['Web', 'Web3']
     },
     {
       id: 5,
@@ -110,15 +122,49 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         { name: 'Firebase', color: 'yellow' },
         { name: 'Dart', color: 'teal' },
         { name: 'HealthKit', color: 'red' }
-      ]
+      ],
+      categories: ['Mobile']
+    },
+    {
+      id: 6,
+      title: 'NFT Marketplace',
+      description: 'A decentralized marketplace for creating, buying, and selling non-fungible tokens. Supports multiple blockchain networks, includes wallet integration, and offers advanced search and filtering capabilities.',
+      image: 'https://via.placeholder.com/800x600?text=NFT+Marketplace',
+      technologies: [
+        { name: 'React', color: 'blue' },
+        { name: 'Solidity', color: 'purple' },
+        { name: 'IPFS', color: 'teal' },
+        { name: 'Ethers.js', color: 'orange' }
+      ],
+      categories: ['Web', 'Web3']
+    },
+    {
+      id: 7,
+      title: 'Cloud Microservices API',
+      description: 'A scalable backend infrastructure built with microservices architecture. Features include API gateway, service discovery, load balancing, circuit breaking, and containerized deployment with Kubernetes.',
+      image: 'https://via.placeholder.com/800x600?text=Microservices+API',
+      technologies: [
+        { name: 'Node.js', color: 'green' },
+        { name: 'Docker', color: 'blue' },
+        { name: 'Kubernetes', color: 'blue' },
+        { name: 'Redis', color: 'red' },
+        { name: 'PostgreSQL', color: 'blue' }
+      ],
+      categories: ['Backend']
     }
   ];
+  
+  // Filtered projects to display
+  projects: Project[] = [];
 
   constructor(@Inject(PLATFORM_ID) platformId: Object, private renderer: Renderer2) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
+    // Initialize with all projects
+    this.projects = [...this.allProjects];
+    
     // Simulate loading time
     if (this.isBrowser) {
       setTimeout(() => {
@@ -145,6 +191,24 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         cancelAnimationFrame(this.particlesAnimationFrame);
       }
     }
+  }
+
+  // Filter projects by category
+  filterProjects(category: string): void {
+    this.selectedCategory = category;
+    
+    if (category === 'All') {
+      this.projects = [...this.allProjects];
+    } else {
+      this.projects = this.allProjects.filter(project => 
+        project.categories.includes(category)
+      );
+    }
+  }
+
+  // Check if a category is currently selected
+  isCategorySelected(category: string): boolean {
+    return this.selectedCategory === category;
   }
 
   private addEventListeners() {

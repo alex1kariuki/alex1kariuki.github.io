@@ -117,12 +117,28 @@
     [class.translate-y-0]="isLoaded"
     class="transition-transform duration-1000 ease-out"
   >
-    <h1 class="text-3xl sm:text-4xl font-light text-center mb-12 tracking-wide leading-tight font-['Outfit'] reveal-text">
+    <h1 class="text-3xl sm:text-4xl font-light text-center mb-6 tracking-wide leading-tight font-['Outfit'] reveal-text">
       <span class="text-teal-400 inline-block"></span> Projects
     </h1>
+    
+    <!-- Category Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10">
+      <button 
+        *ngFor="let category of categories" 
+        (click)="filterProjects(category)"
+        [class.active]="isCategorySelected(category)"
+        [class.bg-teal-500/20]="isCategorySelected(category)"
+        [class.text-teal-300]="isCategorySelected(category)"
+        [class.bg-gray-800/50]="!isCategorySelected(category)"
+        [class.text-gray-300]="!isCategorySelected(category)"
+        class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-teal-500/30 hover:text-teal-200 category-tab"
+      >
+        {{ category }}
+      </button>
+    </div>
 
     <!-- Projects Grid -->
-    <div class="grid grid-cols-1 gap-16 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 gap-16 max-w-5xl mx-auto category-fade-in">
       <!-- Project Items (Generated dynamically) -->
       <div 
         *ngFor="let project of projects; let i = index" 
@@ -137,6 +153,16 @@
             class="w-full h-80 md:h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
           />
           <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-gray-900 to-transparent opacity-60"></div>
+          
+          <!-- Category Badges -->
+          <div class="absolute top-4 left-4 flex flex-wrap gap-2">
+            <span 
+              *ngFor="let cat of project.categories" 
+              class="px-2 py-1 text-xs rounded-md bg-black/40 backdrop-blur-sm text-white font-medium"
+            >
+              {{ cat }}
+            </span>
+          </div>
         </div>
         
         <!-- Project Details (Right Side) -->
@@ -153,6 +179,17 @@
           </div>
         </div>
       </div>
+    </div>
+    
+    <!-- No Projects Message (shown when filtered result is empty) -->
+    <div *ngIf="projects.length === 0" class="text-center py-16 category-fade-in">
+      <p class="text-gray-400 text-lg">No projects found in this category.</p>
+      <button 
+        (click)="filterProjects('All')" 
+        class="mt-4 px-6 py-2 bg-teal-500/20 text-teal-300 rounded-full hover:bg-teal-500/30 transition-colors duration-300"
+      >
+        Show All Projects
+      </button>
     </div>
   </div>
 </div> 
