@@ -17,4 +17,6 @@ export const routes: Routes = [
     path: 'contact',
     component: ContactComponent,
   },
+  // Wildcard route for 404 - must be the last route
+  { path: '**', redirectTo: '' }
 ];
