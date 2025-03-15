@@ -12,12 +12,6 @@ interface Particle {
   color: string;
 }
 
-interface ChatMessage {
-  text: string;
-  isAI: boolean;
-  timestamp: Date;
-}
-
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -43,15 +37,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   private ctx: CanvasRenderingContext2D | null = null;
   private canvas: HTMLCanvasElement | null = null;
 
-  // Chat related properties
-  isChatOpen = false;
-  currentMessage = '';
-  messages: ChatMessage[] = [];
-  isTyping = false;
-
   categories = [{ title: '', image: '' }];
-
-  private tawkTo: any;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object, private renderer: Renderer2) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -64,13 +50,6 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       { title: 'Backend', image: 'http://' },
       { title: 'Data', image: 'http://' },
     ];
-
-    // Initialize with welcome message
-    this.messages = [{
-      text: "Hi! I'm Alex's AI assistant. How can I help you today?",
-      isAI: true,
-      timestamp: new Date()
-    }];
 
     // Simulate loading time
     if (this.isBrowser) {
@@ -85,7 +64,6 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       this.addEventListeners();
       this.animateCursor();
       this.initParticles();
-      this.loadTawkTo();
     }
   }
 
@@ -348,80 +326,5 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.particlesAnimationFrame = requestAnimationFrame(this.animateParticles.bind(this));
-  }
-
-  // Chat related methods
-  toggleChat(): void {
-    if (this.isBrowser) {
-      this.isChatOpen = !this.isChatOpen;
-      const chatGroup = document.querySelector('.chat-group');
-      if (chatGroup) {
-        chatGroup.classList.toggle('active');
-      }
-    }
-  }
-
-  async sendMessage(): Promise<void> {
-    if (!this.currentMessage.trim()) return;
-
-    // Add user message
-    this.messages.push({
-      text: this.currentMessage,
-      isAI: false,
-      timestamp: new Date()
-    });
-
-    const userMessage = this.currentMessage;
-    this.currentMessage = '';
-    this.isTyping = true;
-
-    // Simulate AI response (replace with actual AI integration)
-    setTimeout(() => {
-      this.messages.push({
-        text: `I received your message: "${userMessage}". This is a placeholder response.`,
-        isAI: true,
-        timestamp: new Date()
-      });
-      this.isTyping = false;
-    }, 1000);
-  }
-
-  private loadTawkTo() {
-    if (!this.isBrowser) return;
-
-    // Create Tawk.to script
-    const script = this.renderer.createElement('script');
-    script.type = 'text/javascript';
-    script.text = `
-      var Tawk_API = Tawk_API || {};
-      var Tawk_LoadStart = new Date();
-      (function(){
-        var s1 = document.createElement("script"),
-            s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/YOUR_TAWK_TO_SITE_ID/default';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-      })();
-    `;
-    
-    // Append script to body
-    this.renderer.appendChild(document.body, script);
-
-    // Store Tawk_API reference
-    if (typeof window !== 'undefined') {
-      window.addEventListener('tawkReady', () => {
-        this.tawkTo = (window as any).Tawk_API;
-        // Hide the widget by default
-        this.tawkTo?.hideWidget();
-      });
-    }
-  }
-
-  openTawkChat() {
-    if (this.isBrowser && this.tawkTo) {
-      this.tawkTo.maximize();
-    }
   }
 }
