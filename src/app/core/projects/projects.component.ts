@@ -52,48 +52,64 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   projects: Project[] = [
     {
       id: 1,
-      title: 'Portfolio Website',
-      description: 'A personal portfolio website showcasing my skills, projects, and experience. Built with Angular and TailwindCSS, featuring responsive design and dynamic content.',
-      image: 'https://via.placeholder.com/600x400?text=Portfolio+Website',
+      title: 'Modern Portfolio Website',
+      description: 'A personal portfolio website developed with Angular and TailwindCSS. Features interactive animations, mouse effects, and responsive design. Implements Angular routing for seamless page transitions and optimized for all devices.',
+      image: 'https://via.placeholder.com/800x600?text=Portfolio+Website',
       technologies: [
         { name: 'Angular', color: 'red' },
         { name: 'TailwindCSS', color: 'blue' },
-        { name: 'TypeScript', color: 'blue' }
+        { name: 'TypeScript', color: 'blue' },
+        { name: 'GSAP', color: 'green' }
       ]
     },
     {
       id: 2,
-      title: 'E-Commerce Platform',
-      description: 'A full-featured e-commerce platform with product catalog, shopping cart, user authentication, and payment processing. Integrated with Stripe for secure payments.',
-      image: 'https://via.placeholder.com/600x400?text=E-Commerce+Platform',
+      title: 'ShopHub E-Commerce Platform',
+      description: 'A full-featured e-commerce solution with product catalog, user authentication, shopping cart functionality, and secure payment processing. Built with React and Node.js, utilizing MongoDB for data storage and Stripe for payment processing.',
+      image: 'https://via.placeholder.com/800x600?text=E-Commerce+Platform',
       technologies: [
         { name: 'React', color: 'blue' },
         { name: 'Node.js', color: 'green' },
         { name: 'MongoDB', color: 'green' },
-        { name: 'Stripe', color: 'purple' }
+        { name: 'Stripe', color: 'purple' },
+        { name: 'Redux', color: 'purple' }
       ]
     },
     {
       id: 3,
-      title: 'Task Management App',
-      description: 'A productivity application for task management with features like Kanban boards, calendar view, task priorities, and team collaboration tools.',
-      image: 'https://via.placeholder.com/600x400?text=Task+Management+App',
+      title: 'TaskFlow Management System',
+      description: 'An intuitive task management application featuring Kanban boards, calendar views, task priorities, and team collaboration tools. Includes real-time updates, mobile-responsive design, and integration with Google Calendar and Slack.',
+      image: 'https://via.placeholder.com/800x600?text=Task+Management',
       technologies: [
         { name: 'Vue.js', color: 'green' },
         { name: 'Firebase', color: 'yellow' },
-        { name: 'Vuetify', color: 'blue' }
+        { name: 'Vuetify', color: 'blue' },
+        { name: 'Socket.io', color: 'gray' }
       ]
     },
     {
       id: 4,
-      title: 'Blockchain Explorer',
-      description: 'A web application for exploring blockchain data, viewing transactions, blocks, and wallet details. Includes visualizations and search functionality.',
-      image: 'https://via.placeholder.com/600x400?text=Blockchain+Explorer',
+      title: 'BlockExplorer Analytics',
+      description: 'A comprehensive blockchain explorer providing data visualization, transaction history, block details, and wallet analytics. Features real-time updates, interactive charts using D3.js, and search capabilities across multiple blockchain networks.',
+      image: 'https://via.placeholder.com/800x600?text=Blockchain+Explorer',
       technologies: [
         { name: 'React', color: 'blue' },
         { name: 'Web3.js', color: 'purple' },
         { name: 'Ethereum', color: 'teal' },
-        { name: 'D3.js', color: 'orange' }
+        { name: 'D3.js', color: 'orange' },
+        { name: 'GraphQL', color: 'pink' }
+      ]
+    },
+    {
+      id: 5,
+      title: 'FitTrack Health App',
+      description: 'A health and fitness tracking application that allows users to monitor workouts, nutrition, and progress over time. Features include customizable workout plans, nutrition tracking, progress charts, and integration with wearable devices.',
+      image: 'https://via.placeholder.com/800x600?text=Fitness+App',
+      technologies: [
+        { name: 'Flutter', color: 'blue' },
+        { name: 'Firebase', color: 'yellow' },
+        { name: 'Dart', color: 'teal' },
+        { name: 'HealthKit', color: 'red' }
       ]
     }
   ];
@@ -389,7 +405,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       'purple': 'bg-purple-500/20 text-purple-300',
       'teal': 'bg-teal-500/20 text-teal-300',
       'orange': 'bg-orange-500/20 text-orange-300',
-      'gray': 'bg-gray-500/20 text-gray-300'
+      'gray': 'bg-gray-500/20 text-gray-300',
+      'pink': 'bg-pink-500/20 text-pink-300'
     };
     
     return colorMap[color] || 'bg-gray-500/20 text-gray-300';

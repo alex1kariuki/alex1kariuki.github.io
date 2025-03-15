@@ -19,6 +19,29 @@
                 0 10px 10px -5px rgba(0, 0, 0, 0.2),
                 0 0 15px 2px rgba(45, 212, 191, 0.1);
   }
+
+  /* Horizontal layout specific styles */
+  @media (min-width: 768px) {
+    min-height: 360px; /* Taller cards on desktop */
+    
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+      
+      .group::after {
+        left: auto;
+        right: -210%;
+      }
+      
+      &:hover .group::after {
+        left: auto;
+        right: -30%;
+      }
+    }
+    
+    &:hover {
+      transform: translateX(5px) scale(1.01);
+    }
+  }
 }
 
 /* Technology tag hover effect */
