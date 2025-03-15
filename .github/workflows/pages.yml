@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      # Build Jekyll (to satisfy GitHub Pages expectations)
+      # Build Jekyll first (to satisfy GitHub Pages expectations)
       - name: Setup Pages
         uses: actions/configure-pages@v3
       
@@ -29,7 +29,7 @@ jobs:
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./docs
-          destination: ./_site_jekyll
+          destination: ./_site
       
       # Build Angular app
       - name: Setup Node.js
@@ -41,20 +41,73 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Build Angular app
-        run: npm run build -- --base-href /
-      
-      # Copy Angular build to the root of the site
-      - name: Copy Angular build to site root
+      # List directories to debug
+      - name: List directories before build
         run: |
-          rm -rf ./_site
-          mkdir -p ./_site
-          cp -R ./dist/alex1kariuki.github.io/browser/* ./_site/
-          cp -R ./_site_jekyll/assets ./_site/assets || true
+          find . -type d -maxdepth 2
+      
+      # Build Angular app with proper configuration
+      - name: Build Angular app
+        run: npm run build
+      
+      # List Angular build output to debug
+      - name: Check Angular build output
+        run: |
+          echo "Listing dist directory:"
+          ls -la dist
+          if [ -d "dist/alex1kariuki.github.io" ]; then
+            echo "Listing inside dist/alex1kariuki.github.io:"
+            ls -la dist/alex1kariuki.github.io
+            if [ -d "dist/alex1kariuki.github.io/browser" ]; then
+              echo "Listing inside browser directory:"
+              ls -la dist/alex1kariuki.github.io/browser
+            fi
+          fi
+      
+      # Copy Angular build to the site
+      - name: Copy Angular build to site
+        run: |
+          if [ -d "dist/alex1kariuki.github.io/browser" ]; then
+            cp -R dist/alex1kariuki.github.io/browser/* ./_site/
+          else
+            echo "Angular build output not found at expected location"
+            exit 1
+          fi
+      
+      # Create a simple index.html in case of failure
+      - name: Create fallback index.html if needed
+        run: |
+          if [ ! -f "./_site/index.html" ]; then
+            echo "Creating fallback index.html"
+            cat > ./_site/index.html << 'EOL'
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="utf-8">
+              <title>Alex Kariuki | Portfolio</title>
+            </head>
+            <body>
+              <h1>Alex Kariuki</h1>
+              <p>Welcome to my portfolio website. The full site is coming soon.</p>
+            </body>
+            </html>
+            EOL
+          fi
       
       # Add .nojekyll file to prevent GitHub Pages from running Jekyll again
       - name: Add .nojekyll file
         run: touch ./_site/.nojekyll
+      
+      # Verify the final structure
+      - name: Verify site structure
+        run: |
+          echo "Final site structure:"
+          ls -la ./_site
+          if [ -f "./_site/index.html" ]; then
+            echo "index.html exists in the _site directory"
+          else
+            echo "ERROR: index.html is missing from the _site directory"
+          fi
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
