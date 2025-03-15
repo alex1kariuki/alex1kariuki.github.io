@@ -2,7 +2,7 @@ name: Deploy Angular to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   workflow_dispatch:
 
 permissions:
@@ -28,39 +28,62 @@ jobs:
           node-version: '18'
           cache: 'npm'
       
+      # Debug environment
+      - name: Debug environment
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "Directory listing:"
+          ls -la
+      
       # Install dependencies
       - name: Install dependencies
         run: npm ci
       
+      # Create .nojekyll file in the root
+      - name: Create .nojekyll file
+        run: touch .nojekyll
+      
       # Build Angular with base-href configured for GitHub Pages
       - name: Build Angular app
-        run: npm run build -- --base-href="/"
+        run: npm run build -- --configuration=production
       
-      # Prepare site directory
-      - name: Prepare site directory
+      # Verify Angular build output
+      - name: Verify build output
         run: |
-          # Create site directory
-          mkdir -p _site
+          echo "Checking dist directory:"
+          ls -la dist
           
-          # Copy Angular build output
-          cp -R dist/alex1kariuki.github.io/browser/* _site/
-          
-          # Add necessary GitHub Pages files
-          touch _site/.nojekyll
-          
-          # Debug output
-          echo "Files in _site directory:"
-          ls -la _site/
+          echo "Checking Angular build output:"
+          if [ -d "dist/alex1kariuki.github.io" ]; then
+            ls -la dist/alex1kariuki.github.io
+            
+            if [ -d "dist/alex1kariuki.github.io/browser" ]; then
+              echo "Files in browser directory:"
+              ls -la dist/alex1kariuki.github.io/browser
+              
+              if [ -f "dist/alex1kariuki.github.io/browser/index.html" ]; then
+                echo "✅ index.html exists in the build output"
+                echo "Content of index.html:"
+                head -n 20 dist/alex1kariuki.github.io/browser/index.html
+              else
+                echo "❌ ERROR: index.html is missing from the build output"
+              fi
+            else
+              echo "❌ ERROR: browser directory not found"
+            fi
+          else
+            echo "❌ ERROR: alex1kariuki.github.io directory not found"
+          fi
       
       # Setup Pages
       - name: Setup Pages
         uses: actions/configure-pages@v3
       
-      # Upload the site artifact
-      - name: Upload artifact
+      # Deploy directly from the Angular output folder
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '_site'
+          path: 'dist/alex1kariuki.github.io/browser'
 
   deploy:
     environment:
