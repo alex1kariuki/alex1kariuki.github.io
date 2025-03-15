@@ -1,0 +1,27 @@
+<!-- 
+  This is a sample EmailJS template for reference.
+  When setting up EmailJS, you'll create a template similar to this.
+  
+  SETUP INSTRUCTIONS:
+  
+  1. Sign up at https://www.emailjs.com/ (they have a free tier)
+  2. Create a new Email Service (connect your email provider - Gmail, Outlook, etc.)
+  3. Create a new Email Template using this as a reference
+  4. Get your Service ID, Template ID, and Public Key
+  5. Update these values in the contact.component.ts file
+-->
+
+<h2>New Contact Form Submission</h2>
+
+<p>You have received a new message from your website contact form:</p>
+
+<p><strong>Name:</strong> {{from_name}}</p>
+<p><strong>Email:</strong> {{from_email}}</p>
+<p><strong>Project Details:</strong></p>
+<p>{{project_details}}</p>
+
+<p>This message was sent to: {{to_email}}</p>
+
+<hr>
+
+<p><small>This email was sent via EmailJS from your portfolio website contact form.</small></p> 

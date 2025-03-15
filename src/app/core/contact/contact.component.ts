@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, Hos
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import emailjs from '@emailjs/browser';
 
 interface Particle {
   x: number;
@@ -31,6 +32,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   contactForm: FormGroup;
   formSubmitted = false;
   submitMessage = '';
+  isSubmitting = false;
   
   private animationFrame: number | null = null;
   private particlesAnimationFrame: number | null = null;
@@ -40,6 +42,12 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   private particles: Particle[] = [];
   private ctx: CanvasRenderingContext2D | null = null;
   private canvas: HTMLCanvasElement | null = null;
+
+  // EmailJS configuration
+  private readonly EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID'; // Replace with your service ID
+  private readonly EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID'; // Replace with your template ID
+  private readonly EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY'; // Replace with your public key
+  private readonly RECIPIENT_EMAIL = 'build@stoim.io'; // The email address to receive messages
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object, 
@@ -62,6 +70,9 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => {
         this.isLoaded = true;
       }, 1500);
+      
+      // Initialize EmailJS
+      emailjs.init(this.EMAILJS_PUBLIC_KEY);
     }
   }
 
@@ -88,16 +99,47 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   onSubmit() {
     this.formSubmitted = true;
     
-    if (this.contactForm.valid) {
-      console.log('Form submission:', this.contactForm.value);
-      this.submitMessage = 'Thanks for reaching out! I\'ll contact you as soon as possible.';
-      this.contactForm.reset();
-      this.formSubmitted = false;
+    if (this.contactForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
+      this.submitMessage = 'Sending your message...';
       
-      // Clear message after 5 seconds
-      setTimeout(() => {
-        this.submitMessage = '';
-      }, 5000);
+      const formData = this.contactForm.value;
+      
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        project_details: formData.project,
+        to_email: this.RECIPIENT_EMAIL
+      };
+      
+      // Send email using EmailJS
+      emailjs.send(
+        this.EMAILJS_SERVICE_ID,
+        this.EMAILJS_TEMPLATE_ID,
+        templateParams
+      ).then(() => {
+        // Success
+        this.submitMessage = 'Thanks for reaching out! I\'ll contact you as soon as possible.';
+        this.contactForm.reset();
+        this.formSubmitted = false;
+        this.isSubmitting = false;
+        
+        // Clear message after 5 seconds
+        setTimeout(() => {
+          this.submitMessage = '';
+        }, 5000);
+      }).catch((error) => {
+        // Error
+        console.error('Error sending email:', error);
+        this.submitMessage = 'There was an error sending your message. Please try again or contact me directly.';
+        this.isSubmitting = false;
+        
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+          this.submitMessage = '';
+        }, 5000);
+      });
     }
   }
 
