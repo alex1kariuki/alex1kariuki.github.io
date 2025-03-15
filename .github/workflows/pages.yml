@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Angular to GitHub Pages
 
 on:
   push:
@@ -20,15 +20,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build Angular app
+        run: npm run build -- --base-href /
+      
       - name: Setup Pages
         uses: actions/configure-pages@v3
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs
-          destination: ./_site
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          path: './dist/alex1kariuki-github-io/browser'
 
   deploy:
     environment:
