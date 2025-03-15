@@ -1,9 +1,42 @@
+<!-- Loading Screen -->
+<div *ngIf="!isLoaded" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+  <div class="text-center">
+    <div class="w-16 h-16 border-t-4 border-teal-400 border-solid rounded-full animate-spin mb-4"></div>
+    <p class="text-teal-400 text-lg animate-pulse">Loading...</p>
+  </div>
+</div>
+
 <!-- Content -->
-<div class="min-h-screen text-white relative overflow-x-hidden flex flex-col cursor-none font-space-grotesk">
-  <!-- Background Elements (reused from index component) -->
-  <div class="fixed inset-0 -z-30">
+<div 
+  [class.opacity-0]="!isLoaded"
+  [class.opacity-100]="isLoaded"
+  class="min-h-screen text-white relative overflow-x-hidden flex flex-col cursor-none font-space-grotesk transition-opacity duration-700 delay-300"
+>
+  <!-- Background Elements -->
+  <div class="fixed inset-0 -z-30 opacity-0 transition-opacity duration-1000 delay-500"
+       [class.opacity-100]="isLoaded">
     <div class="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#0a192f] to-[#112240] opacity-95"></div>
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+    <div
+      class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] scale-75 opacity-0 transition-all duration-1000 delay-700"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
+    ></div>
+    <div
+      class="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] rounded-full bg-blue-500/10 blur-[150px] animate-pulse [animation-duration:5s] scale-75 opacity-0 transition-all duration-1000 delay-1000"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
+    ></div>
+    <div
+      class="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] rounded-full bg-purple-500/10 blur-[150px] animate-pulse [animation-duration:6s] [animation-delay:1000ms] scale-75 opacity-0 transition-all duration-1000 delay-1200"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
+    ></div>
+    <div
+      class="absolute top-1/2 right-1/3 w-[25vw] h-[25vw] rounded-full bg-teal-500/10 blur-[150px] animate-pulse [animation-duration:7s] [animation-delay:2000ms] scale-75 opacity-0 transition-all duration-1000 delay-1400"
+      [class.opacity-100]="isLoaded"
+      [class.scale-100]="isLoaded"
+    ></div>
+    <div class="particles-container absolute inset-0" #particlesContainer></div>
   </div>
 
   <!-- Noise Overlay -->
@@ -13,6 +46,36 @@
       style="
         background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4xNSIvPjwvc3ZnPg==');
       "
+    ></div>
+  </div>
+
+  <!-- Cursor Elements -->
+  <div class="fixed pointer-events-none z-50" #cursor>
+    <div class="relative">
+      <div class="absolute w-6 h-6 bg-white rounded-full blur-md"></div>
+      <div class="w-4 h-4 bg-white rounded-full"></div>
+    </div>
+  </div>
+
+  <div class="fixed pointer-events-none z-40" #trail>
+    <div
+      class="w-12 h-12 bg-white/40 rounded-full blur-2xl transform transition-transform duration-500"
+    ></div>
+  </div>
+
+  <!-- Glow Effects -->
+  <div class="fixed inset-0 -z-10">
+    <div
+      class="absolute h-[30vh] aspect-square bg-gradient-to-r from-purple-500/30 via-blue-500/30 to-teal-500/30 rounded-full filter blur-[40px] transition-all duration-1000 ease-out"
+      #glow
+    ></div>
+    <div
+      class="absolute h-[25vh] aspect-square bg-gradient-to-r from-purple-400/40 via-blue-400/40 to-teal-400/40 rounded-full filter blur-[30px] transition-all duration-700 ease-out"
+      #secondaryGlow
+    ></div>
+    <div
+      class="absolute h-[20vh] aspect-square bg-gradient-to-r from-purple-300/50 via-blue-300/50 to-teal-300/50 rounded-full filter blur-[20px] transition-all duration-500 ease-out"
+      #coreGlow
     ></div>
   </div>
 
@@ -28,11 +91,6 @@
         <span class="text-2xl sm:text-3xl font-bold ml-2 sm:ml-3">&#125;</span>
       </div>
       <div class="flex space-x-6 sm:space-x-8">
-        <a
-          routerLink="/"
-          class="text-sm sm:text-base text-white hover:text-gray-300 transition-colors hover:scale-110 transform duration-200"
-          >Home</a
-        >
         <a
           routerLink="/projects"
           class="text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors hover:scale-110 transform duration-200"
@@ -53,23 +111,32 @@
   </nav>
 
   <!-- Main Content -->
-  <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-4xl sm:text-5xl font-light text-center mb-12 tracking-wide leading-tight font-['Outfit']">
-      Projects
+  <div 
+    class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+    [class.translate-y-4]="!isLoaded"
+    [class.translate-y-0]="isLoaded"
+    class="transition-transform duration-1000 ease-out"
+  >
+    <h1 class="text-4xl sm:text-5xl font-light text-center mb-12 tracking-wide leading-tight font-['Outfit'] reveal-text">
+      <span class="text-teal-400 inline-block">Creative</span> Projects
     </h1>
 
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
       <!-- Project Items (Generated dynamically) -->
       <div 
-        *ngFor="let project of projects" 
-        class="bg-gray-900/50 rounded-xl overflow-hidden shadow-xl transform hover:scale-[1.01] transition-all duration-300 project-card"
+        *ngFor="let project of projects; let i = index" 
+        class="bg-gray-900/50 rounded-xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-all duration-300 project-card animate-fade-in"
+        [style.animation-delay]="i * 200 + 'ms'"
       >
-        <img 
-          [src]="project.image" 
-          [alt]="project.title" 
-          class="w-full h-64 object-cover object-center"
-        />
+        <div class="relative overflow-hidden group">
+          <img 
+            [src]="project.image" 
+            [alt]="project.title" 
+            class="w-full h-64 object-cover object-center transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
+        </div>
         <div class="p-6">
           <h2 class="text-2xl font-semibold mb-4 text-teal-400">{{ project.title }}</h2>
           <p class="text-gray-300 mb-6">{{ project.description }}</p>
@@ -81,8 +148,11 @@
               {{ tech.name }}
             </span>
           </div>
-          <button class="px-4 py-2 bg-teal-500 text-white font-light rounded-md hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 text-sm">
-            View Project
+          <button class="px-4 py-2 bg-teal-500 text-white font-light rounded-md hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 text-sm flex items-center gap-2">
+            <span>View Project</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </button>
         </div>
       </div>
