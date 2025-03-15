@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
 
 interface Particle {
   x: number;
@@ -43,11 +44,11 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   private ctx: CanvasRenderingContext2D | null = null;
   private canvas: HTMLCanvasElement | null = null;
 
-  // EmailJS configuration
-  private readonly EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID'; // Replace with your service ID
-  private readonly EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID'; // Replace with your template ID
-  private readonly EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY'; // Replace with your public key
-  private readonly RECIPIENT_EMAIL = 'build@stoim.io'; // The email address to receive messages
+  // EmailJS configuration from environment
+  private readonly EMAILJS_SERVICE_ID = environment.emailjs.serviceId;
+  private readonly EMAILJS_TEMPLATE_ID = environment.emailjs.templateId;
+  private readonly EMAILJS_PUBLIC_KEY = environment.emailjs.publicKey;
+  private readonly RECIPIENT_EMAIL = environment.emailjs.recipientEmail;
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object, 
