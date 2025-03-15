@@ -12,13 +12,25 @@
   <script>
     (function() {
       // Redirect logic for GitHub Pages
-      const redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
+      var redirect = sessionStorage.getItem('redirect');
       
-      if (redirect && redirect !== location.href) {
-        console.log('Redirecting from:', redirect);
-        const cleanRedirect = redirect.replace(/https?:\/\/[^\/]+/, '');
-        history.replaceState(null, null, cleanRedirect);
+      if (redirect) {
+        // Clear the redirect to prevent infinite loops
+        sessionStorage.removeItem('redirect');
+        
+        console.log('index.html: Processing redirect from', redirect);
+        
+        try {
+          // Extract just the path portion from the full URL
+          var redirectUrl = new URL(redirect);
+          var pathWithSearch = redirectUrl.pathname + redirectUrl.search + redirectUrl.hash;
+          
+          // Use history API to navigate without reloading
+          console.log('index.html: Redirecting to path', pathWithSearch);
+          window.history.replaceState(null, null, pathWithSearch);
+        } catch (e) {
+          console.error('Error processing redirect:', e);
+        }
       }
     })();
   </script>

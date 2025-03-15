@@ -4,18 +4,54 @@
   <meta charset="utf-8">
   <title>Alex Kariuki - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 2rem;
+      text-align: center;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+  </style>
   <script>
     // ====================================================================================================================
     // This is a special 404 page for GitHub Pages to handle client-side routing in Single Page Applications
     // Based on https://github.com/rafgraph/spa-github-pages
     // ====================================================================================================================
     
-    // Redirect all 404s to index.html with the original path included in the hash fragment
-    sessionStorage.redirect = location.href;
-    window.location.href = '/';
+    // Store the current URL in sessionStorage and redirect to the homepage
+    (function() {
+      var currentPath = window.location.pathname;
+      var currentUrl = window.location.href;
+      
+      // Store the full URL for restoration
+      sessionStorage.setItem('redirect', currentUrl);
+      
+      // Log redirect for debugging
+      console.log('404 page: Redirecting from', currentUrl, 'to homepage');
+      
+      // Redirect to homepage after a short delay to allow console logging
+      setTimeout(function() {
+        window.location.href = '/';
+      }, 200);
+    })();
   </script>
 </head>
 <body>
-  <h2>Page not found. Redirecting to home page...</h2>
+  <h2>Page Not Found</h2>
+  <p>Redirecting to homepage...</p>
+  <p>If you are not redirected automatically, <a href="/">click here</a> to go to the homepage.</p>
 </body>
 </html> 

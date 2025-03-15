@@ -2,11 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Page Not Found | Alex Kariuki</title>
-  <script>
-    // This script will redirect to the home page
-    window.location.replace('/');
-  </script>
+  <title>Alex Kariuki - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -15,8 +12,8 @@
       color: #333;
       background-color: #f8f9fa;
     }
-    h1 {
-      font-size: 2.5rem;
+    h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
     p {
@@ -27,14 +24,34 @@
       color: #0366d6;
       text-decoration: none;
     }
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
+  <script>
+    // ====================================================================================================================
+    // This is a special 404 page for GitHub Pages to handle client-side routing in Single Page Applications
+    // Based on https://github.com/rafgraph/spa-github-pages
+    // ====================================================================================================================
+    
+    // Store the current URL in sessionStorage and redirect to the homepage
+    (function() {
+      var currentPath = window.location.pathname;
+      var currentUrl = window.location.href;
+      
+      // Store the full URL for restoration
+      sessionStorage.setItem('redirect', currentUrl);
+      
+      // Log redirect for debugging
+      console.log('404 page: Redirecting from', currentUrl, 'to homepage');
+      
+      // Redirect to homepage after a short delay to allow console logging
+      setTimeout(function() {
+        window.location.href = '/';
+      }, 200);
+    })();
+  </script>
 </head>
 <body>
-  <h1>Page Not Found</h1>
-  <p>The page you are looking for doesn't exist or has been moved.</p>
-  <p>If you are not redirected automatically, please <a href="/">click here</a> to return to the home page.</p>
+  <h2>Page Not Found</h2>
+  <p>Redirecting to homepage...</p>
+  <p>If you are not redirected automatically, <a href="/">click here</a> to go to the homepage.</p>
 </body>
 </html> 

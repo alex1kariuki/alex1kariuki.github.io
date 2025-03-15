@@ -4,7 +4,10 @@ import { ProjectsComponent } from './core/projects/projects.component';
 import { ContactComponent } from './core/contact/contact.component';
 
 export const routes: Routes = [
+  // Default redirect to home component
   { path: '', redirectTo: '', pathMatch: 'full' },
+  
+  // Main routes
   {
     path: '',
     component: IndexComponent,
@@ -17,6 +20,7 @@ export const routes: Routes = [
     path: 'contact',
     component: ContactComponent,
   },
+  
   // Wildcard route for 404 - must be the last route
   { path: '**', redirectTo: '' }
 ];
