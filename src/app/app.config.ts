@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideRouter, withDebugTracing, withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,8 +10,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(
       routes,
-      withHashLocation(),
-      withDebugTracing()
+      // Only use hash routing in production, not in development
+      ...(!isDevMode() ? [withHashLocation()] : []),
+      // Only enable debug tracing in development
+      ...(isDevMode() ? [withDebugTracing()] : [])
     ), 
     provideClientHydration(), 
     provideHttpClient()
