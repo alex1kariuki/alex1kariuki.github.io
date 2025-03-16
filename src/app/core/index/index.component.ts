@@ -55,7 +55,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isBrowser) {
       setTimeout(() => {
         this.isLoaded = true;
-      }, 500);
+      }, 300);
     }
   }
 
