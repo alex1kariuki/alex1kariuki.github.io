@@ -173,7 +173,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isBrowser) {
       setTimeout(() => {
         this.isLoaded = true;
-      }, 1500);
+      }, 500);
       
       // Check for category in query parameters
       this.route.queryParams.subscribe(params => {
