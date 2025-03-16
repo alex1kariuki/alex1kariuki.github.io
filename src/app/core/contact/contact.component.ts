@@ -70,7 +70,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isBrowser) {
       setTimeout(() => {
         this.isLoaded = true;
-      }, 1500);
+      }, 500);
       
       // Initialize EmailJS
       emailjs.init(this.EMAILJS_PUBLIC_KEY);
