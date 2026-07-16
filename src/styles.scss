@@ -5,12 +5,17 @@
 
 $primary-color: #2dd4bf; // teal-400
 $text-color: #ffffff;
-$body-background-color: #0a192f;
+$body-background-color: #05010f; // deep space
 
-html,
+/* Base colour lives on <html> only. Keeping <body> transparent lets the
+   fixed, negative-z-index space backdrop show through (a body background
+   would paint on top of it and hide the starfield). */
+html {
+  background: $body-background-color;
+}
+
 body {
   min-height: 100%;
-  background: $body-background-color;
   color: $text-color;
   font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;

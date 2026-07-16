@@ -2,144 +2,130 @@
 
 <div class="page-enter min-h-screen text-white relative overflow-x-hidden flex flex-col font-space-grotesk">
   <!-- Navigation -->
-  <nav class="p-4 sm:p-6 lg:p-8">
-    <div class="max-w-7xl mx-auto flex flex-col items-center space-y-4 sm:space-y-6">
-      <a routerLink="/" class="relative flex items-center hover:opacity-80 transition-opacity duration-300" aria-label="Alex Kariuki home">
-        <span class="text-2xl sm:text-3xl font-bold mr-2 sm:mr-3">&#123;</span>
-        <div class="flex flex-col items-center leading-none">
-          <span class="text-xl sm:text-2xl font-bold mb-1">ALEX</span>
-          <span class="text-xl sm:text-2xl font-bold">KARIUKI</span>
-        </div>
-        <span class="text-2xl sm:text-3xl font-bold ml-2 sm:ml-3">&#125;</span>
-      </a>
-      <div class="flex space-x-6 sm:space-x-8">
-        <a routerLink="/projects" class="text-sm sm:text-base text-white hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Projects</a>
-        <a href="https://medium.com/@alex1kariuki" target="_blank" rel="noopener noreferrer" class="text-sm sm:text-base text-white hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Blog</a>
-        <a routerLink="/contact" class="text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Contact</a>
-      </div>
+  <nav class="shrink-0 w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+    <a routerLink="/" class="flex items-center hover:opacity-80 transition-opacity duration-300" aria-label="Alex Kariuki home">
+      <span class="text-xl sm:text-2xl font-bold mr-1.5 text-teal-400">&#123;</span>
+      <span class="text-base sm:text-lg font-bold tracking-wide">ALEX KARIUKI</span>
+      <span class="text-xl sm:text-2xl font-bold ml-1.5 text-teal-400">&#125;</span>
+    </a>
+    <div class="flex space-x-5 sm:space-x-8 text-sm sm:text-base">
+      <a routerLink="/projects" class="text-white hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Projects</a>
+      <a href="https://medium.com/@alex1kariuki" target="_blank" rel="noopener noreferrer" class="text-white hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Blog</a>
+      <a routerLink="/contact" class="text-teal-400 hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Contact</a>
     </div>
   </nav>
 
   <!-- Main Content -->
-  <div class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-16 mt-8 text-center w-full">
-    <div class="w-full flex justify-center items-center mb-10">
-      <div class="max-w-3xl w-full flex flex-col items-center">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-8 tracking-wide leading-tight font-display px-4">
-          Let's <span class="text-teal-400 inline-block">collaborate</span> on your next project
+  <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-14 max-w-5xl w-full items-center">
+      <!-- Intro + direct contact -->
+      <div class="text-center lg:text-left">
+        <p class="text-xs sm:text-sm tracking-[0.3em] text-teal-300/80 uppercase mb-4">Get in touch</p>
+        <h1 class="text-3xl sm:text-4xl font-light tracking-wide leading-tight font-display mb-5">
+          Let's <span class="text-teal-400">collaborate</span> on your next project
         </h1>
-        <p class="text-gray-300 text-center px-6 mb-6 text-base sm:text-lg max-w-2xl">
-          Fill out the form below with your project details, and I'll get back to you as soon as possible. I'm excited to hear about what you're working on!
+        <p class="text-gray-300 text-base sm:text-lg mb-8 max-w-md mx-auto lg:mx-0">
+          Tell me a little about what you're building and I'll get back to you as soon as possible.
         </p>
+
+        <div class="flex flex-col items-center lg:items-start gap-3">
+          <a href="mailto:alex@storim.io" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>alex&#64;storim.io</span>
+          </a>
+          <a href="https://linkedin.com/in/alexkariuki" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/alex1kariuki" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="w-full">
+        <div *ngIf="submitMessage" class="mb-5 py-3 px-5 rounded-lg animate-fade-in text-center text-sm" [ngClass]="submitError ? 'bg-red-500/20 text-red-300' : 'bg-teal-500/20 text-teal-300'" role="status" aria-live="polite">
+          {{ submitMessage }}
+        </div>
+
+        <div class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-sm rounded-xl p-6 sm:p-7 shadow-xl">
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-5" novalidate>
+            <!-- Name -->
+            <div class="space-y-1.5 text-left">
+              <label for="name" class="block text-gray-300 text-sm font-medium">Name</label>
+              <input
+                type="text"
+                id="name"
+                formControlName="name"
+                autocomplete="name"
+                class="w-full bg-white/5 border border-white/15 focus:border-teal-500 text-white rounded-lg p-2.5 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-teal-500"
+                [ngClass]="{ 'border-red-500': formSubmitted && nameControl?.errors }"
+              />
+              <div *ngIf="formSubmitted && nameControl?.errors" class="text-red-400 text-xs">
+                <span *ngIf="nameControl?.errors?.['required']">Name is required</span>
+                <span *ngIf="nameControl?.errors?.['minlength']">Name must be at least 2 characters</span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-1.5 text-left">
+              <label for="email" class="block text-gray-300 text-sm font-medium">Email</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                autocomplete="email"
+                class="w-full bg-white/5 border border-white/15 focus:border-teal-500 text-white rounded-lg p-2.5 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-teal-500"
+                [ngClass]="{ 'border-red-500': formSubmitted && emailControl?.errors }"
+              />
+              <div *ngIf="formSubmitted && emailControl?.errors" class="text-red-400 text-xs">
+                <span *ngIf="emailControl?.errors?.['required']">Email is required</span>
+                <span *ngIf="emailControl?.errors?.['email']">Please enter a valid email address</span>
+              </div>
+            </div>
+
+            <!-- Project Details -->
+            <div class="space-y-1.5 text-left">
+              <label for="project" class="block text-gray-300 text-sm font-medium">Project Details</label>
+              <textarea
+                id="project"
+                formControlName="project"
+                rows="4"
+                class="w-full bg-white/5 border border-white/15 focus:border-teal-500 text-white rounded-lg p-2.5 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-teal-500"
+                [ngClass]="{ 'border-red-500': formSubmitted && projectControl?.errors }"
+              ></textarea>
+              <div *ngIf="formSubmitted && projectControl?.errors" class="text-red-400 text-xs">
+                <span *ngIf="projectControl?.errors?.['required']">Project details are required</span>
+                <span *ngIf="projectControl?.errors?.['minlength']">Please provide at least 10 characters of details</span>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="w-full px-6 py-2.5 bg-teal-500 text-white font-light rounded-lg hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-[#05010f] disabled:opacity-60 disabled:cursor-not-allowed"
+              [disabled]="isSubmitting"
+            >
+              <span *ngIf="!isSubmitting">Send Message</span>
+              <span *ngIf="isSubmitting" class="flex items-center justify-center">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Sending...
+              </span>
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-
-    <!-- Status Message -->
-    <div
-      *ngIf="submitMessage"
-      class="w-full max-w-md mb-8 py-4 px-6 rounded-lg animate-fade-in text-center"
-      [ngClass]="submitError ? 'bg-red-500/20 text-red-300' : 'bg-teal-500/20 text-teal-300'"
-      role="status"
-      aria-live="polite"
-    >
-      {{ submitMessage }}
-    </div>
-
-    <!-- Contact Form -->
-    <div class="w-full max-w-md mx-auto bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-xl transform hover:shadow-teal-500/5 transition-all duration-300">
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6" novalidate>
-        <!-- Name -->
-        <div class="space-y-2 text-left">
-          <label for="name" class="block text-gray-300 text-sm font-medium">Name</label>
-          <input
-            type="text"
-            id="name"
-            formControlName="name"
-            autocomplete="name"
-            class="w-full bg-gray-800/50 border border-gray-700 focus:border-teal-500 text-white rounded-lg p-3 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-teal-500"
-            [ngClass]="{ 'border-red-500': formSubmitted && nameControl?.errors }"
-          />
-          <div *ngIf="formSubmitted && nameControl?.errors" class="text-red-400 text-xs mt-1">
-            <span *ngIf="nameControl?.errors?.['required']">Name is required</span>
-            <span *ngIf="nameControl?.errors?.['minlength']">Name must be at least 2 characters</span>
-          </div>
-        </div>
-
-        <!-- Email -->
-        <div class="space-y-2 text-left">
-          <label for="email" class="block text-gray-300 text-sm font-medium">Email</label>
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            autocomplete="email"
-            class="w-full bg-gray-800/50 border border-gray-700 focus:border-teal-500 text-white rounded-lg p-3 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-teal-500"
-            [ngClass]="{ 'border-red-500': formSubmitted && emailControl?.errors }"
-          />
-          <div *ngIf="formSubmitted && emailControl?.errors" class="text-red-400 text-xs mt-1">
-            <span *ngIf="emailControl?.errors?.['required']">Email is required</span>
-            <span *ngIf="emailControl?.errors?.['email']">Please enter a valid email address</span>
-          </div>
-        </div>
-
-        <!-- Project Details -->
-        <div class="space-y-2 text-left">
-          <label for="project" class="block text-gray-300 text-sm font-medium">Project Details</label>
-          <textarea
-            id="project"
-            formControlName="project"
-            rows="5"
-            class="w-full bg-gray-800/50 border border-gray-700 focus:border-teal-500 text-white rounded-lg p-3 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-teal-500"
-            [ngClass]="{ 'border-red-500': formSubmitted && projectControl?.errors }"
-          ></textarea>
-          <div *ngIf="formSubmitted && projectControl?.errors" class="text-red-400 text-xs mt-1">
-            <span *ngIf="projectControl?.errors?.['required']">Project details are required</span>
-            <span *ngIf="projectControl?.errors?.['minlength']">Please provide at least 10 characters of details</span>
-          </div>
-        </div>
-
-        <!-- Submit -->
-        <div class="text-center">
-          <button
-            type="submit"
-            class="w-full px-6 py-3 bg-teal-500 text-white font-light rounded-lg hover:bg-teal-400 transform hover:translate-y-[-2px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-60 disabled:cursor-not-allowed"
-            [disabled]="isSubmitting"
-          >
-            <span *ngIf="!isSubmitting">Send Message</span>
-            <span *ngIf="isSubmitting" class="flex items-center justify-center">
-              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Sending...
-            </span>
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Contact Details -->
-    <div class="mt-12 text-center max-w-md mx-auto">
-      <h2 class="text-xl font-light mb-3 text-teal-400">Or reach out directly</h2>
-      <div class="flex flex-col items-center justify-center gap-3">
-        <a href="mailto:alex@storim.io" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          <span>alex&#64;storim.io</span>
-        </a>
-        <a href="https://linkedin.com/in/alexkariuki" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-          <span>LinkedIn</span>
-        </a>
-        <a href="https://github.com/alex1kariuki" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-300 hover:text-teal-300 transition-colors duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg>
-          <span>GitHub</span>
-        </a>
-      </div>
-    </div>
-  </div>
+  </main>
 </div>
