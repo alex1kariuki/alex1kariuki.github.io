@@ -43,14 +43,21 @@ EmailJS is a service that allows you to send emails directly from client-side Ja
 
 ### 5. Update Your Code
 
-Open the file `src/app/core/contact/contact.component.ts` and update the following constants with your EmailJS information:
+Open the file `src/environments/environment.ts` and update the `emailjs` block with your EmailJS information:
 
 ```typescript
-private readonly EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID'; // Replace with your service ID
-private readonly EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID'; // Replace with your template ID
-private readonly EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY'; // Replace with your public key
-private readonly RECIPIENT_EMAIL = 'build@stoim.io'; // Update if needed
+export const environment = {
+  production: false,
+  emailjs: {
+    serviceId: 'YOUR_SERVICE_ID',   // Replace with your service ID
+    templateId: 'YOUR_TEMPLATE_ID', // Replace with your template ID
+    publicKey: 'YOUR_PUBLIC_KEY',   // Replace with your public key
+    recipientEmail: 'alex@storim.io' // Update if needed
+  }
+};
 ```
+
+The contact form checks these values at runtime: while they still contain the `YOUR_...` placeholders it shows a friendly fallback message with your direct email instead of attempting (and failing) to send.
 
 ### 6. Test Your Form
 

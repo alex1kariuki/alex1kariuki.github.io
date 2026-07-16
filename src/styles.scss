@@ -1,17 +1,58 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$success-color: #28a745;
-$error-color: #dc3545;
-$text-color: #FFFFFF;
-$body-background-color: #000000; 
+$primary-color: #2dd4bf; // teal-400
+$text-color: #ffffff;
+$body-background-color: #0a192f;
 
-
-body{
+html,
+body {
+  min-height: 100%;
   background: $body-background-color;
   color: $text-color;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Legacy alias kept for existing template classes */
+.font-space-grotesk {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Custom cursor is only enabled by the backdrop on precise-pointer devices */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none;
+}
+
+/* Gentle entrance for page content */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

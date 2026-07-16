@@ -106,25 +106,45 @@ The portfolio is fully responsive and works across devices:
 ![Tablet View](screenshots/tablet.png)
 <!-- Add your screenshot here -->
 
+## 🖼️ Adding Project Screenshots
+
+Project cards look for images in `public/assets/images/projects/` (e.g. `portfolio.png`, `shophub.png`, `taskflow.png`, …). Until a real screenshot is added, each card automatically falls back to a branded placeholder (`placeholder.svg`), so nothing ever renders broken. Drop in a PNG/JPG with the matching filename referenced in [projects.component.ts](src/app/core/projects/projects.component.ts) to replace it.
+
 ## ⚙️ Configuration
 
 The contact form is configured using EmailJS. To set up your own email service:
 
 1. Create an account at [EmailJS](https://www.emailjs.com/)
 2. Set up an email service and template
-3. Update the service and template IDs in the contact component
+3. Add your **Service ID**, **Template ID** and **Public Key** to [src/environments/environment.ts](src/environments/environment.ts)
+
+Until real IDs are provided, the form detects the placeholder values and shows a friendly message pointing visitors to the direct email address instead of failing silently.
 
 ## 🌐 Deployment
 
-This project is configured for GitHub Pages deployment. To deploy:
+This site deploys to **GitHub Pages as a fully static, prerendered site** via GitHub Actions — no server is required.
+
+### One-time setup
+
+1. In the repo, go to **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+
+That's it. After the first successful run you can delete the legacy `gh-pages` branch — it is no longer used.
+
+### How it works
+
+- The workflow at [.github/workflows/deploy.yml](.github/workflows/deploy.yml) runs on every push to `master`.
+- It runs `npm ci && npm run build`, which **prerenders** every route to static HTML in `dist/alex1kariuki.github.io/browser`.
+- It adds a `404.html` (SPA fallback for deep links) and a `.nojekyll` file, then publishes the `browser` folder to Pages.
+
+To build locally:
 
 ```bash
-# Build with base href configured for GitHub Pages
-ng build --configuration production
-
-# Deploy to GitHub Pages
-npm run deploy
+npm run build
+# Static output: dist/alex1kariuki.github.io/browser
 ```
+
+> **Note:** The project also contains an Angular SSR server entry (`server.ts`), used only at build time to prerender pages. GitHub Pages serves the static `browser/` output only — the Node server is never deployed.
 
 ## 🤝 Contributing
 

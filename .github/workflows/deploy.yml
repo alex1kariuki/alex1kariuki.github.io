@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Deploy whenever the production branch is updated
+  push:
+    branches: [master]
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+# Permissions required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; cancel in-progress runs for the same ref
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (static prerender)
+        run: npm run build
+
+      - name: Prepare static site
+        run: |
+          BROWSER_DIR=dist/alex1kariuki.github.io/browser
+          # SPA fallback so deep links / refreshes resolve to the app
+          cp "$BROWSER_DIR/index.html" "$BROWSER_DIR/404.html"
+          # Ensure GitHub Pages does not run Jekyll over the Angular output
+          touch "$BROWSER_DIR/.nojekyll"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/alex1kariuki.github.io/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

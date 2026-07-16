@@ -1,0 +1,25 @@
+:host {
+  display: contents;
+}
+
+/* Backdrop fades in gently on mount */
+.backdrop-enter {
+  animation: backdrop-fade 1.2s ease forwards;
+}
+
+@keyframes backdrop-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cursor + trail start hidden to avoid a flash at the top-left corner */
+.cursor-dot,
+.cursor-trail {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.3s ease;
+}
