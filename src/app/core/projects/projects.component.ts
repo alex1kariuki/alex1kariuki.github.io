@@ -1,7 +1,11 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
+import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
 import { InteractiveBackdropComponent } from '../../shared/interactive-backdrop/interactive-backdrop.component';
+import { PdfExportService } from '../../shared/pdf-export.service';
 
 interface Project {
   id: number;
@@ -17,10 +21,15 @@ interface Technology {
   color: string;
 }
 
+interface Category {
+  value: string;
+  label: string;
+}
+
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, RouterModule, InteractiveBackdropComponent],
+  imports: [CommonModule, FormsModule, RouterModule, InteractiveBackdropComponent],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
@@ -30,7 +39,13 @@ export class ProjectsComponent implements OnInit {
   /** Shown if a project screenshot is missing so cards never look broken. */
   readonly fallbackImage = 'assets/images/projects/placeholder.svg';
 
-  categories: string[] = ['All', 'Web', 'Mobile', 'Backend', 'Web3'];
+  // Non-technical-friendly disciplines.
+  readonly categories: Category[] = [
+    { value: 'All', label: 'All' },
+    { value: 'Frontend', label: 'Frontend' },
+    { value: 'Backend', label: 'Backend' },
+    { value: 'DevOps', label: 'DevOps / SRE' },
+  ];
   selectedCategory = 'All';
 
   allProjects: Project[] = [
@@ -38,110 +53,175 @@ export class ProjectsComponent implements OnInit {
       id: 1,
       title: 'Modern Portfolio Website',
       description:
-        'A personal portfolio website developed with Angular and TailwindCSS. Features interactive animations, mouse effects, and responsive design. Implements Angular routing for seamless page transitions and optimized for all devices.',
+        'A personal portfolio built with Angular and TailwindCSS featuring an interactive animated space backdrop, responsive layouts and seamless routing across every device.',
       image: 'assets/images/projects/portfolio.png',
       technologies: [
         { name: 'Angular', color: 'red' },
         { name: 'TailwindCSS', color: 'blue' },
         { name: 'TypeScript', color: 'blue' },
-        { name: 'GSAP', color: 'green' },
       ],
-      categories: ['Web'],
+      categories: ['Frontend'],
     },
     {
       id: 2,
-      title: 'ShopHub E-Commerce Platform',
+      title: 'ShopHub Storefront',
       description:
-        'A full-featured e-commerce solution with product catalog, user authentication, shopping cart functionality, and secure payment processing. Built with React and Node.js, utilizing MongoDB for data storage and Stripe for payment processing.',
-      image: 'assets/images/projects/shophub.png',
+        'A fast, accessible e-commerce storefront with product browsing, cart, and checkout flows. Built with Next.js and React for server-rendered performance and great SEO.',
+      image: 'assets/images/projects/shophub-web.png',
       technologies: [
         { name: 'React', color: 'blue' },
-        { name: 'Node.js', color: 'green' },
-        { name: 'MongoDB', color: 'green' },
-        { name: 'Stripe', color: 'purple' },
+        { name: 'Next.js', color: 'gray' },
+        { name: 'TailwindCSS', color: 'blue' },
         { name: 'Redux', color: 'purple' },
       ],
-      categories: ['Web', 'Backend'],
+      categories: ['Frontend'],
     },
     {
       id: 3,
-      title: 'TaskFlow Management System',
+      title: 'TaskFlow Dashboard',
       description:
-        'An intuitive task management application featuring Kanban boards, calendar views, task priorities, and team collaboration tools. Includes real-time updates, mobile-responsive design, and integration with Google Calendar and Slack.',
+        'An intuitive project-management dashboard with Kanban boards, calendar views and real-time collaboration. A clean, data-dense interface that stays simple to use.',
       image: 'assets/images/projects/taskflow.png',
       technologies: [
         { name: 'Vue.js', color: 'green' },
-        { name: 'Firebase', color: 'yellow' },
         { name: 'Vuetify', color: 'blue' },
-        { name: 'Socket.io', color: 'gray' },
+        { name: 'TypeScript', color: 'blue' },
       ],
-      categories: ['Web', 'Backend'],
+      categories: ['Frontend'],
     },
     {
       id: 4,
-      title: 'BlockExplorer Analytics',
+      title: 'FitTrack Mobile App',
       description:
-        'A comprehensive blockchain explorer providing data visualization, transaction history, block details, and wallet analytics. Features real-time updates, interactive charts using D3.js, and search capabilities across multiple blockchain networks.',
-      image: 'assets/images/projects/blockexplorer.png',
-      technologies: [
-        { name: 'React', color: 'blue' },
-        { name: 'Web3.js', color: 'purple' },
-        { name: 'Ethereum', color: 'teal' },
-        { name: 'D3.js', color: 'orange' },
-        { name: 'GraphQL', color: 'pink' },
-      ],
-      categories: ['Web', 'Web3'],
-    },
-    {
-      id: 5,
-      title: 'FitTrack Health App',
-      description:
-        'A health and fitness tracking application that allows users to monitor workouts, nutrition, and progress over time. Features include customizable workout plans, nutrition tracking, progress charts, and integration with wearable devices.',
+        'A cross-platform health and fitness app to track workouts, nutrition and progress, with customizable plans and smooth, native-feeling animations.',
       image: 'assets/images/projects/fittrack.png',
       technologies: [
         { name: 'Flutter', color: 'blue' },
-        { name: 'Firebase', color: 'yellow' },
         { name: 'Dart', color: 'teal' },
-        { name: 'HealthKit', color: 'red' },
+        { name: 'Firebase', color: 'yellow' },
       ],
-      categories: ['Mobile'],
+      categories: ['Frontend'],
+    },
+    {
+      id: 5,
+      title: 'Insights Analytics UI',
+      description:
+        'A rich analytics experience with interactive charts, drill-downs and live-updating dashboards, turning complex datasets into clear, actionable visuals.',
+      image: 'assets/images/projects/analytics.png',
+      technologies: [
+        { name: 'React', color: 'blue' },
+        { name: 'D3.js', color: 'orange' },
+        { name: 'GraphQL', color: 'pink' },
+      ],
+      categories: ['Frontend'],
     },
     {
       id: 6,
-      title: 'NFT Marketplace',
+      title: 'ShopHub Commerce API',
       description:
-        'A decentralized marketplace for creating, buying, and selling non-fungible tokens. Supports multiple blockchain networks, includes wallet integration, and offers advanced search and filtering capabilities.',
-      image: 'assets/images/projects/nft-marketplace.png',
+        'The backend powering the ShopHub store: product catalog, authentication, orders and secure Stripe payments, backed by PostgreSQL and a clean REST/GraphQL surface.',
+      image: 'assets/images/projects/shophub-api.png',
       technologies: [
-        { name: 'React', color: 'blue' },
-        { name: 'Solidity', color: 'purple' },
-        { name: 'IPFS', color: 'teal' },
-        { name: 'Ethers.js', color: 'orange' },
+        { name: 'Node.js', color: 'green' },
+        { name: 'PostgreSQL', color: 'blue' },
+        { name: 'Stripe', color: 'purple' },
+        { name: 'GraphQL', color: 'pink' },
       ],
-      categories: ['Web', 'Web3'],
+      categories: ['Backend'],
     },
     {
       id: 7,
-      title: 'Cloud Microservices API',
+      title: 'Realtime Collaboration Service',
       description:
-        'A scalable backend infrastructure built with microservices architecture. Features include API gateway, service discovery, load balancing, circuit breaking, and containerized deployment with Kubernetes.',
-      image: 'assets/images/projects/microservices.png',
+        'A low-latency realtime service powering live updates, presence and notifications across TaskFlow using WebSockets and Redis pub/sub for horizontal scale.',
+      image: 'assets/images/projects/realtime.png',
       technologies: [
         { name: 'Node.js', color: 'green' },
-        { name: 'Docker', color: 'blue' },
-        { name: 'Kubernetes', color: 'blue' },
+        { name: 'Socket.io', color: 'gray' },
         { name: 'Redis', color: 'red' },
+      ],
+      categories: ['Backend'],
+    },
+    {
+      id: 8,
+      title: 'Auth & Identity Service',
+      description:
+        'A secure identity platform handling sign-in, OAuth, JWT sessions and role-based access control, written in Go for speed and reliability at scale.',
+      image: 'assets/images/projects/auth.png',
+      technologies: [
+        { name: 'Go', color: 'teal' },
+        { name: 'PostgreSQL', color: 'blue' },
+        { name: 'JWT', color: 'orange' },
+      ],
+      categories: ['Backend'],
+    },
+    {
+      id: 9,
+      title: 'Payments Ledger Service',
+      description:
+        'An event-driven payments ledger processing high-volume transactions with strong consistency guarantees, built on Java and Kafka for durable, ordered event streams.',
+      image: 'assets/images/projects/ledger.png',
+      technologies: [
+        { name: 'Java', color: 'red' },
+        { name: 'Kafka', color: 'gray' },
         { name: 'PostgreSQL', color: 'blue' },
       ],
       categories: ['Backend'],
+    },
+    {
+      id: 10,
+      title: 'Kubernetes Delivery Platform',
+      description:
+        'A production-grade Kubernetes platform with Helm charts, GitOps delivery via ArgoCD, and progressive rollouts, giving teams safe, self-service deployments.',
+      image: 'assets/images/projects/k8s.png',
+      technologies: [
+        { name: 'Kubernetes', color: 'blue' },
+        { name: 'Helm', color: 'blue' },
+        { name: 'ArgoCD', color: 'orange' },
+        { name: 'Docker', color: 'blue' },
+      ],
+      categories: ['DevOps'],
+    },
+    {
+      id: 11,
+      title: 'CI/CD & Infrastructure as Code',
+      description:
+        'Fully automated pipelines and reproducible cloud infrastructure defined in Terraform, deploying to AWS on every commit with built-in tests and approvals.',
+      image: 'assets/images/projects/cicd.png',
+      technologies: [
+        { name: 'Terraform', color: 'purple' },
+        { name: 'GitHub Actions', color: 'gray' },
+        { name: 'AWS', color: 'orange' },
+      ],
+      categories: ['DevOps'],
+    },
+    {
+      id: 12,
+      title: 'Observability Stack',
+      description:
+        'End-to-end monitoring with metrics, logs and traces via Prometheus, Grafana and OpenTelemetry, plus SLO-based alerting that keeps services healthy and on-call calm.',
+      image: 'assets/images/projects/observability.png',
+      technologies: [
+        { name: 'Prometheus', color: 'orange' },
+        { name: 'Grafana', color: 'orange' },
+        { name: 'OpenTelemetry', color: 'purple' },
+      ],
+      categories: ['DevOps'],
     },
   ];
 
   projects: Project[] = [];
 
+  // PDF-to-email state
+  pdfEmail = '';
+  pdfSending = false;
+  pdfStatus = '';
+  pdfError = false;
+
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private pdfService: PdfExportService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -151,7 +231,7 @@ export class ProjectsComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       const category = params['category'];
-      if (category && this.categories.includes(category)) {
+      if (category && this.categories.some((c) => c.value === category)) {
         this.filterProjects(category);
       }
     });
@@ -167,6 +247,88 @@ export class ProjectsComponent implements OnInit {
 
   isCategorySelected(category: string): boolean {
     return this.selectedCategory === category;
+  }
+
+  get selectedCategoryLabel(): string {
+    return this.categories.find((c) => c.value === this.selectedCategory)?.label ?? 'All';
+  }
+
+  get pdfButtonLabel(): string {
+    return this.selectedCategory === 'All'
+      ? 'Email me all projects (PDF)'
+      : `Email me the ${this.selectedCategoryLabel} PDF`;
+  }
+
+  /** EmailJS attachment delivery only works once a real PDF template is set. */
+  get isPdfEmailConfigured(): boolean {
+    const e = environment.emailjs;
+    return (
+      !!e.serviceId && !e.serviceId.startsWith('YOUR_') &&
+      !!e.pdfTemplateId && !e.pdfTemplateId.startsWith('YOUR_')
+    );
+  }
+
+  /** Build a PDF of the current category and email it to the visitor. */
+  async emailPdf(): Promise<void> {
+    if (!this.isBrowser || this.pdfSending) return;
+
+    const email = this.pdfEmail.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.pdfError = true;
+      this.pdfStatus = 'Please enter a valid email address.';
+      return;
+    }
+
+    this.pdfSending = true;
+    this.pdfError = false;
+    this.pdfStatus = 'Preparing your PDF…';
+
+    const label = this.selectedCategoryLabel;
+    const slug = this.selectedCategory.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const filename = `alex-kariuki-${slug}-projects.pdf`;
+
+    try {
+      const doc = await this.pdfService.build(
+        label,
+        this.projects.map((p) => ({
+          title: p.title,
+          description: p.description,
+          technologies: p.technologies,
+          categories: p.categories,
+        }))
+      );
+
+      if (this.isPdfEmailConfigured) {
+        const content = this.pdfService.toBase64(doc);
+        await emailjs.send(
+          environment.emailjs.serviceId,
+          environment.emailjs.pdfTemplateId,
+          {
+            to_email: email,
+            to_name: email.split('@')[0],
+            category: label,
+            from_name: 'Alex Kariuki',
+            filename,
+            content,
+            message: `Here are Alex Kariuki's ${label} projects, attached as a PDF.`,
+          },
+          { publicKey: environment.emailjs.publicKey }
+        );
+        this.pdfStatus = `Sent! Check ${email} for the ${label} projects PDF.`;
+        this.pdfEmail = '';
+      } else {
+        // Graceful fallback until the EmailJS PDF template is configured.
+        this.pdfService.download(doc, filename);
+        this.pdfStatus =
+          'Email delivery isn’t set up yet, so the PDF was downloaded for you instead.';
+      }
+    } catch (err) {
+      console.error('PDF export failed:', err);
+      this.pdfError = true;
+      this.pdfStatus = 'Sorry — something went wrong creating or sending the PDF. Please try again.';
+    } finally {
+      this.pdfSending = false;
+    }
   }
 
   /** Swap in the branded placeholder if a screenshot fails to load. */

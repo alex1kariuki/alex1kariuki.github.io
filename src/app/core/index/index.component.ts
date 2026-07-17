@@ -17,10 +17,9 @@ interface TechLogo {
 })
 export class IndexComponent {
   readonly categories = [
-    { title: 'Web', description: 'Full-stack web development', category: 'Web' },
-    { title: 'Mobile', description: 'Cross-platform mobile apps', category: 'Mobile' },
-    { title: 'Web3', description: 'Blockchain & dApps', category: 'Web3' },
-    { title: 'Backend', description: 'Scalable solutions', category: 'Backend' },
+    { title: 'Frontend', description: 'Web & mobile interfaces', category: 'Frontend' },
+    { title: 'Backend', description: 'APIs & data services', category: 'Backend' },
+    { title: 'DevOps / SRE', description: 'Cloud, CI/CD & reliability', category: 'DevOps' },
   ];
 
   // Rendered twice in the template for a seamless marquee loop.

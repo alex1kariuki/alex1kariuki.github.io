@@ -28,6 +28,20 @@ body {
   font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Keep autofilled inputs on-theme — browsers force a light background otherwise */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f8fafc;
+  caret-color: #f8fafc;
+  -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.9) inset;
+  box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.9) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 /* Custom cursor is only enabled by the backdrop on precise-pointer devices */
 body.has-custom-cursor,
 body.has-custom-cursor * {

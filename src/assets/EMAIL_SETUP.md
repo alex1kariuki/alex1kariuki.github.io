@@ -59,6 +59,19 @@ export const environment = {
 
 The contact form checks these values at runtime: while they still contain the `YOUR_...` placeholders it shows a friendly fallback message with your direct email instead of attempting (and failing) to send.
 
+### 5b. (Optional) Template for the "Email me the PDF" feature
+
+The Projects page can generate a PDF of a category's projects in the browser and email it to the visitor as an attachment. To enable it:
+
+1. In EmailJS, create a **second template** (e.g. "Portfolio PDF").
+2. In that template's **Attachments** section, add a **Variable Attachment**:
+   - **Content** → parameter `{{content}}` (base64, the PDF is produced client-side)
+   - **Filename** → `{{filename}}`
+3. In the template body you can use `{{category}}`, `{{to_name}}` and `{{message}}`. Set the "To Email" to `{{to_email}}`.
+4. Put the new template's ID in `pdfTemplateId` in `src/environments/environment.ts`.
+
+> ⚠️ **Note:** EmailJS attachments require a **paid EmailJS plan** — the free tier cannot send files. Until `pdfTemplateId` is configured, the button gracefully falls back to downloading the PDF in the visitor's browser instead of emailing it.
+
 ### 6. Test Your Form
 
 1. Run your application

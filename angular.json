@@ -18,6 +18,16 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/alex1kariuki.github.io",
+            "allowedCommonJsDependencies": [
+              "jspdf",
+              "html2canvas",
+              "fflate",
+              "dompurify",
+              "canvg",
+              "core-js",
+              "raf",
+              "rgbcolor"
+            ],
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

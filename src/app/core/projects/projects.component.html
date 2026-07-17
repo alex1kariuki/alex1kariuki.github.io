@@ -24,15 +24,62 @@
       <button
         *ngFor="let cat of categories"
         type="button"
-        (click)="filterProjects(cat)"
+        (click)="filterProjects(cat.value)"
         class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-teal-500/30 hover:text-teal-200 category-tab"
         [ngClass]="{
-          'bg-teal-500/20 text-teal-300 active': isCategorySelected(cat),
-          'bg-white/5 text-gray-300': !isCategorySelected(cat)
+          'bg-teal-500/20 text-teal-300 active': isCategorySelected(cat.value),
+          'bg-white/5 text-gray-300': !isCategorySelected(cat.value)
         }"
       >
-        {{ cat }}
+        {{ cat.label }}
       </button>
+    </div>
+
+    <!-- Email-me-the-PDF bar -->
+    <div class="max-w-xl mx-auto mb-10 text-center">
+      <p class="text-sm text-gray-400 mb-3">
+        Prefer a PDF? Get
+        <span class="text-gray-200">{{ selectedCategory === 'All' ? 'all my projects' : selectedCategoryLabel + ' projects' }}</span>
+        emailed to your inbox.
+      </p>
+      <form (ngSubmit)="emailPdf()" novalidate class="flex flex-col sm:flex-row gap-2.5">
+        <div class="relative flex-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-teal-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <input
+            type="email"
+            name="pdfEmail"
+            [(ngModel)]="pdfEmail"
+            [disabled]="pdfSending"
+            placeholder="you@email.com"
+            autocomplete="email"
+            aria-label="Your email address"
+            class="w-full bg-slate-900/50 border border-white/10 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-teal-500/60 focus:ring-2 focus:ring-teal-500/25 transition-colors duration-300"
+          />
+        </div>
+        <button
+          type="submit"
+          [disabled]="pdfSending"
+          class="shrink-0 inline-flex items-center justify-center gap-2 whitespace-nowrap px-6 py-3 rounded-full bg-teal-500 hover:bg-teal-400 text-sm font-medium text-white shadow-lg shadow-teal-500/20 transition-all duration-300 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-teal-400/50 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        >
+          @if (pdfSending) {
+          <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+          <span>Working…</span>
+          } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+          </svg>
+          <span>{{ pdfButtonLabel }}</span>
+          }
+        </button>
+      </form>
+      <p *ngIf="pdfStatus" class="text-xs mt-3" [ngClass]="pdfError ? 'text-red-300' : 'text-teal-300'" role="status" aria-live="polite">
+        {{ pdfStatus }}
+      </p>
     </div>
 
     <!-- Projects Grid -->
