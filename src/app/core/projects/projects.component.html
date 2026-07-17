@@ -1,191 +1,134 @@
-<!-- Loading Screen -->
-<div *ngIf="!isLoaded" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
-  <div class="text-center">
-    <div class="w-16 h-16 border-t-4 border-teal-400 border-solid rounded-full animate-spin mb-4"></div>
-    <p class="text-teal-400 text-lg animate-pulse">Loading...</p>
-  </div>
-</div>
+<app-interactive-backdrop />
 
-<!-- Content -->
-<div 
-  [class.opacity-0]="!isLoaded"
-  [class.opacity-100]="isLoaded"
-  class="min-h-screen text-white relative overflow-x-hidden flex flex-col cursor-none font-space-grotesk transition-opacity duration-700 delay-300"
->
-  <!-- Background Elements -->
-  <div class="fixed inset-0 -z-30 opacity-0 transition-opacity duration-1000 delay-500"
-       [class.opacity-100]="isLoaded">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#0a192f] to-[#112240] opacity-95"></div>
-    <div
-      class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] scale-75 opacity-0 transition-all duration-1000 delay-700"
-      [class.opacity-100]="isLoaded"
-      [class.scale-100]="isLoaded"
-    ></div>
-    <div
-      class="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] rounded-full bg-blue-500/10 blur-[150px] animate-pulse [animation-duration:5s] scale-75 opacity-0 transition-all duration-1000 delay-1000"
-      [class.opacity-100]="isLoaded"
-      [class.scale-100]="isLoaded"
-    ></div>
-    <div
-      class="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] rounded-full bg-purple-500/10 blur-[150px] animate-pulse [animation-duration:6s] [animation-delay:1000ms] scale-75 opacity-0 transition-all duration-1000 delay-1200"
-      [class.opacity-100]="isLoaded"
-      [class.scale-100]="isLoaded"
-    ></div>
-    <div
-      class="absolute top-1/2 right-1/3 w-[25vw] h-[25vw] rounded-full bg-teal-500/10 blur-[150px] animate-pulse [animation-duration:7s] [animation-delay:2000ms] scale-75 opacity-0 transition-all duration-1000 delay-1400"
-      [class.opacity-100]="isLoaded"
-      [class.scale-100]="isLoaded"
-    ></div>
-    <div class="particles-container absolute inset-0" #particlesContainer></div>
-  </div>
-
-  <!-- Noise Overlay -->
-  <div class="fixed inset-0 -z-20 opacity-[0.05] mix-blend-soft-light">
-    <div
-      class="absolute inset-0"
-      style="
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4xNSIvPjwvc3ZnPg==');
-      "
-    ></div>
-  </div>
-
-  <!-- Cursor Elements -->
-  <div class="fixed pointer-events-none z-50" #cursor>
-    <div class="relative">
-      <div class="absolute w-6 h-6 bg-white rounded-full blur-md"></div>
-      <div class="w-4 h-4 bg-white rounded-full"></div>
-    </div>
-  </div>
-
-  <div class="fixed pointer-events-none z-40" #trail>
-    <div
-      class="w-12 h-12 bg-white/40 rounded-full blur-2xl transform transition-transform duration-500"
-    ></div>
-  </div>
-
-  <!-- Glow Effects -->
-  <div class="fixed inset-0 -z-10">
-    <div
-      class="absolute h-[30vh] aspect-square bg-gradient-to-r from-purple-500/30 via-blue-500/30 to-teal-500/30 rounded-full filter blur-[40px] transition-all duration-1000 ease-out"
-      #glow
-    ></div>
-    <div
-      class="absolute h-[25vh] aspect-square bg-gradient-to-r from-purple-400/40 via-blue-400/40 to-teal-400/40 rounded-full filter blur-[30px] transition-all duration-700 ease-out"
-      #secondaryGlow
-    ></div>
-    <div
-      class="absolute h-[20vh] aspect-square bg-gradient-to-r from-purple-300/50 via-blue-300/50 to-teal-300/50 rounded-full filter blur-[20px] transition-all duration-500 ease-out"
-      #coreGlow
-    ></div>
-  </div>
-
+<div class="page-enter min-h-screen text-white relative overflow-x-hidden flex flex-col font-space-grotesk">
   <!-- Navigation -->
-  <nav class="p-4 sm:p-6 lg:p-8">
-    <div class="max-w-7xl mx-auto flex flex-col items-center space-y-4 sm:space-y-6">
-      <a routerLink="/" class="relative flex items-center hover:opacity-80 transition-opacity duration-300">
-        <span class="text-2xl sm:text-3xl font-bold mr-2 sm:mr-3">&#123;</span>
-        <div class="flex flex-col items-center leading-none">
-          <span class="text-xl sm:text-2xl font-bold mb-1">ALEX</span>
-          <span class="text-xl sm:text-2xl font-bold">KARIUKI</span>
-        </div>
-        <span class="text-2xl sm:text-3xl font-bold ml-2 sm:ml-3">&#125;</span>
-      </a>
-      <div class="flex space-x-6 sm:space-x-8">
-        <a
-          routerLink="/projects"
-          class="text-sm sm:text-base text-teal-400 hover:text-teal-300 transition-colors hover:scale-110 transform duration-200"
-          >Projects</a
-        >
-        <a
-          href="https://medium.com/@alex1kariuki"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm sm:text-base text-white hover:text-gray-300 transition-colors hover:scale-110 transform duration-200"
-          >Blog</a
-        >
-        <a
-          routerLink="/contact"
-          class="text-sm sm:text-base text-white hover:text-gray-300 transition-colors hover:scale-110 transform duration-200"
-          >Contact</a
-        >
-      </div>
+  <nav class="shrink-0 w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+    <a routerLink="/" class="flex items-center hover:opacity-80 transition-opacity duration-300" aria-label="Alex Kariuki home">
+      <span class="text-xl sm:text-2xl font-bold mr-1.5 text-teal-400">&#123;</span>
+      <span class="text-base sm:text-lg font-bold tracking-wide">ALEX KARIUKI</span>
+      <span class="text-xl sm:text-2xl font-bold ml-1.5 text-teal-400">&#125;</span>
+    </a>
+    <div class="flex space-x-5 sm:space-x-8 text-sm sm:text-base">
+      <a routerLink="/projects" class="text-teal-400 hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Projects</a>
+      <a href="https://medium.com/@alex1kariuki" target="_blank" rel="noopener noreferrer" class="text-white hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Blog</a>
+      <a routerLink="/contact" class="text-white hover:text-teal-300 transition-colors hover:scale-110 transform duration-200">Contact</a>
     </div>
   </nav>
 
   <!-- Main Content -->
-  <div 
-    class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-    [class.translate-y-4]="!isLoaded"
-    [class.translate-y-0]="isLoaded"
-    class="transition-transform duration-1000 ease-out"
-  >
-    <h1 class="text-3xl sm:text-4xl font-light text-center mb-6 tracking-wide leading-tight font-['Outfit'] reveal-text">
-      <span class="text-teal-400 inline-block"></span> Projects
-    </h1>
-    
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <h1 class="text-2xl sm:text-3xl font-light text-center mb-5 tracking-wide font-display">Projects</h1>
+
     <!-- Category Tabs -->
-    <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10">
-      <button *ngFor="let cat of categories" (click)="filterProjects(cat)" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-teal-500/30 hover:text-teal-200 category-tab" [ngClass]="{
-          'bg-teal-500/20 text-teal-300 active': isCategorySelected(cat),
-          'bg-gray-800/50 text-gray-300': !isCategorySelected(cat)
-        }">
-        {{ cat }}
+    <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
+      <button
+        *ngFor="let cat of categories"
+        type="button"
+        (click)="filterProjects(cat.value)"
+        class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-teal-500/30 hover:text-teal-200 category-tab"
+        [ngClass]="{
+          'bg-teal-500/20 text-teal-300 active': isCategorySelected(cat.value),
+          'bg-white/5 text-gray-300': !isCategorySelected(cat.value)
+        }"
+      >
+        {{ cat.label }}
       </button>
     </div>
 
-    <!-- Projects Grid -->
-    <div class="grid grid-cols-1 gap-16 max-w-5xl mx-auto category-fade-in">
-      <!-- Project Items (Generated dynamically) -->
-      <div 
-        *ngFor="let project of projects; let i = index" 
-        class="bg-gray-900/50 rounded-xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-all duration-300 project-card animate-fade-in flex flex-col md:flex-row min-h-[280px]"
-        [style.animation-delay]="i * 200 + 'ms'"
-      >
-        <!-- Project Image (Left Side) -->
-        <div class="relative overflow-hidden group md:w-2/5">
-          <img 
-            [src]="project.image" 
-            [alt]="project.title" 
-            class="w-full h-80 md:h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+    <!-- Email-me-the-PDF bar -->
+    <div class="max-w-xl mx-auto mb-10 text-center">
+      <p class="text-sm text-gray-400 mb-3">
+        Prefer a PDF? Get
+        <span class="text-gray-200">{{ selectedCategory === 'All' ? 'all my projects' : selectedCategoryLabel + ' projects' }}</span>
+        emailed to your inbox.
+      </p>
+      <form (ngSubmit)="emailPdf()" novalidate class="flex flex-col sm:flex-row gap-2.5">
+        <div class="relative flex-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-teal-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <input
+            type="email"
+            name="pdfEmail"
+            [(ngModel)]="pdfEmail"
+            [disabled]="pdfSending"
+            placeholder="you@email.com"
+            autocomplete="email"
+            aria-label="Your email address"
+            class="w-full bg-slate-900/50 border border-white/10 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-teal-500/60 focus:ring-2 focus:ring-teal-500/25 transition-colors duration-300"
           />
-          <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-gray-900 to-transparent opacity-60"></div>
-          
-          <!-- Category Badges -->
-          <div class="absolute top-4 left-4 flex flex-wrap gap-2">
-            <span 
-              *ngFor="let cat of project.categories" 
-              class="px-2 py-1 text-xs rounded-md bg-black/40 backdrop-blur-sm text-white font-medium"
-            >
+        </div>
+        <button
+          type="submit"
+          [disabled]="pdfSending"
+          class="shrink-0 inline-flex items-center justify-center gap-2 whitespace-nowrap px-6 py-3 rounded-full bg-teal-500 hover:bg-teal-400 text-sm font-medium text-white shadow-lg shadow-teal-500/20 transition-all duration-300 hover:translate-y-[-1px] focus:outline-none focus:ring-2 focus:ring-teal-400/50 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        >
+          @if (pdfSending) {
+          <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+          <span>Working…</span>
+          } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+          </svg>
+          <span>{{ pdfButtonLabel }}</span>
+          }
+        </button>
+      </form>
+      <p *ngIf="pdfStatus" class="text-xs mt-3" [ngClass]="pdfError ? 'text-red-300' : 'text-teal-300'" role="status" aria-live="polite">
+        {{ pdfStatus }}
+      </p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 category-fade-in">
+      <article
+        *ngFor="let project of projects; let i = index"
+        class="group flex flex-col bg-white/[0.03] border border-white/10 rounded-xl overflow-hidden shadow-lg hover:border-teal-500/40 hover:shadow-teal-500/10 transition-all duration-300 project-card animate-fade-in"
+        [style.animation-delay]="i * 80 + 'ms'"
+      >
+        <!-- Image -->
+        <div class="relative overflow-hidden h-40">
+          <img
+            [src]="project.image"
+            [alt]="project.title + ' preview'"
+            (error)="onImageError($event)"
+            loading="lazy"
+            class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#05010f]/80 to-transparent"></div>
+          <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+            <span *ngFor="let cat of project.categories" class="px-2 py-0.5 text-[11px] rounded-md bg-black/50 backdrop-blur-sm text-white font-medium">
               {{ cat }}
             </span>
           </div>
         </div>
-        
-        <!-- Project Details (Right Side) -->
-        <div class="p-6 md:p-10 md:w-3/5 md:flex md:flex-col md:justify-center">
-          <h2 class="text-2xl font-semibold mb-4 text-teal-400">{{ project.title }}</h2>
-          <p class="text-gray-300 mb-6">{{ project.description }}</p>
-          <div class="flex flex-wrap gap-2">
-            <span 
-              *ngFor="let tech of project.technologies" 
-              [class]="getTechBgClass(tech.color) + ' px-3 py-1 text-xs rounded-full tech-tag'"
-            >
+
+        <!-- Body -->
+        <div class="flex flex-col flex-1 p-5">
+          <h2 class="text-lg font-semibold mb-2 text-teal-400">{{ project.title }}</h2>
+          <p class="text-gray-300 text-sm mb-4 line-clamp-3">{{ project.description }}</p>
+          <div class="flex flex-wrap gap-1.5 mt-auto">
+            <span *ngFor="let tech of project.technologies" [class]="getTechBgClass(tech.color) + ' px-2.5 py-0.5 text-[11px] rounded-full tech-tag'">
               {{ tech.name }}
             </span>
           </div>
         </div>
-      </div>
+      </article>
     </div>
-    
-    <!-- No Projects Message (shown when filtered result is empty) -->
+
+    <!-- Empty State -->
     <div *ngIf="projects.length === 0" class="text-center py-16 category-fade-in">
       <p class="text-gray-400 text-lg">No projects found in this category.</p>
-      <button 
-        (click)="filterProjects('All')" 
+      <button
+        type="button"
+        (click)="filterProjects('All')"
         class="mt-4 px-6 py-2 bg-teal-500/20 text-teal-300 rounded-full hover:bg-teal-500/30 transition-colors duration-300"
       >
         Show All Projects
       </button>
     </div>
-  </div>
-</div> 
+  </main>
+</div>

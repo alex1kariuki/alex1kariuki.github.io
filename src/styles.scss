@@ -1,17 +1,77 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$success-color: #28a745;
-$error-color: #dc3545;
-$text-color: #FFFFFF;
-$body-background-color: #000000; 
+$primary-color: #2dd4bf; // teal-400
+$text-color: #ffffff;
+$body-background-color: #05010f; // deep space
 
-
-body{
+/* Base colour lives on <html> only. Keeping <body> transparent lets the
+   fixed, negative-z-index space backdrop show through (a body background
+   would paint on top of it and hide the starfield). */
+html {
   background: $body-background-color;
+}
+
+body {
+  min-height: 100%;
   color: $text-color;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Legacy alias kept for existing template classes */
+.font-space-grotesk {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Keep autofilled inputs on-theme — browsers force a light background otherwise */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f8fafc;
+  caret-color: #f8fafc;
+  -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.9) inset;
+  box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.9) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Custom cursor is only enabled by the backdrop on precise-pointer devices */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none;
+}
+
+/* Gentle entrance for page content */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
